@@ -1,37 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Home from './Home.js';
-import Login from './Login.js';
-import Signup from './Signup.js';
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Welcome from './Welcome.js';
+import "firebase/database";
 
-class App extends Component {
+class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { loggedIn: false };
+		this.handleLogin = this.handleLogin.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+		this.state = { 
+			isLoggedIn: false,
+			username: '',
+			password: '',
+		 };
 	}
+
+	handleLogin(success, name) {
+		this.setState({isLoggedIn: success, username: name });
+	}
+
+	handleLogout() {
+		this.setState({isLoggedIn: false});
+	}
+
   render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-        	<Route path="/login">
-    			<Login />
-        	</Route>
-        	<Route path="/signup">
-            	<Signup />
-        	</Route>
-    		<Route exact path="/">
-	    { this.props.loggedIn ? <Home /> : <Login /> }
-			</Route>
-			<Route path="/home">
-				<Redirect exact from="/home" to="/" />
-			</Route>
-			<Route path="*">
-				<Redirect to="/" />
-			</Route>
-        </Switch>
-      </BrowserRouter>
-    );
+    return this.state.isLoggedIn ? <Home name={this.state.username} handleLogout={this.handleLogout} /> : <Welcome handleLogin={this.handleLogin} />;
   }
 }
 

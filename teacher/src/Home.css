@@ -1,0 +1,20 @@
+#logout-btn {
+    position: absolute;
+    top: 1%;
+    right: 2.5%;
+}
+
+#homepage-container {
+    margin: 1%;
+    position: relative;
+    min-height: 50vh;
+}
+
+#create-classroom-btn {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
