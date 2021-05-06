@@ -1,0 +1,25 @@
+.form-group {
+    margin: 5% 0;
+}
+
+/* center-aligns placeholder text for form inputs */
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, #-ms-input-placeholder {
+    text-align: center;
+    color: white;
+}
+
+#login-form {
+    width: 25%;
+    margin: auto;
+    margin-top: 7.5%;
+}
+
+.form-control {
+    background-color: lightgray;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    font-size: 6.5rem;
+}
