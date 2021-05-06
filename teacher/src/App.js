@@ -21,7 +21,7 @@ class App extends Component {
             	<Signup />
         	</Route>
     		<Route exact path="/">
-            	<Home />
+	    { this.props.loggedIn ? <Home /> : <Login /> }
 			</Route>
 			<Route path="/home">
 				<Redirect exact from="/home" to="/" />
