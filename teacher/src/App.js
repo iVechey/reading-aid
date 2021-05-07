@@ -24,9 +24,9 @@ class App extends React.Component {
 		this.setState({isLoggedIn: false});
 	}
 
-  render() {
-    return this.state.isLoggedIn ? <Home name={this.state.username} handleLogout={this.handleLogout} /> : <Welcome handleLogin={this.handleLogin} />;
-  }
+	render() {
+		return this.state.isLoggedIn ? <Home user={this.state.username} handleLogout={this.handleLogout} /> : <Welcome handleLogin={this.handleLogin} />;
+	}
 }
 
 export default App;

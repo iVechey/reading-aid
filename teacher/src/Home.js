@@ -1,17 +1,28 @@
 import { Component } from "react";
 import "./Home.css";
+import "firebase/database";
+import CreateClassroom from "./CreateClassroom";
+import ClassOverview from "./ClassOverview";
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.switchView = this.switchView.bind(this);
+        this.state = {
+            isCreatingClassroom: false,
+        }
+    }
+
+    switchView() {
+        this.setState({ isCreatingClassroom: !this.state.isCreatingClassroom });
+    }
+
    render() {
-        return (
-            <div id="homepage-container" className="container-fluid">
-                <h1 className="text-center">{this.props.name}'s homepage</h1>
-                <div id="create-classroom-btn">
-                    <button className="btn btn-lg btn-secondary">Create Classroom</button>
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.handleLogout}>Logout</button>
-                </div>
-            </div>
-        )
+       if(this.state.isCreatingClassroom) {
+           return <CreateClassroom username={this.props.user} returnToDashboard={this.switchView} />;
+        } else {
+           return <ClassOverview user={this.props.user} handleLogout={this.props.handleLogout} createClassroom={this.switchView} />;
+        }
    }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase/app";
 import "firebase/database";
-import "./Login.css";
+import "./Form.css";
 
 class Login extends Component {
     constructor(props) {
