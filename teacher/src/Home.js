@@ -5,6 +5,7 @@ import "firebase/database";
 import "firebase/auth";
 import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
+import ShowClassroom from "./ShowClassroom";
 
 class Home extends Component {
     constructor(props) {
@@ -14,6 +15,8 @@ class Home extends Component {
         this.showDashboard = this.showDashboard.bind(this);
         this.state = {
             isCreatingClassroom: false,
+            isShowingClassroom: false,
+            classroom: '',
         }
     }
 
@@ -22,19 +25,20 @@ class Home extends Component {
     }
 
     showClassroom(classroom_code) {
-        // TODO this should show an overview of the classroom specified by the given code
-        // right now it gives "maximum update depth exceeded" if we try to set state here
+        this.setState({ isShowingClassroom: true, classroom: classroom_code });
     }
 
     showDashboard() {
-        this.setState({ isCreatingClassroom: false });
+        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: '' });
     }
 
    render() {
        if(this.state.isCreatingClassroom) {
-           return <CreateClassroom returnToDashboard={this.showDashboard} uid={firebase.auth().currentUser.uid} />;
+            return <CreateClassroom returnToDashboard={this.showDashboard} uid={firebase.auth().currentUser.uid} />;
+        } else if(this.state.isShowingClassroom) {
+            return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} /> 
         } else {
-           return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
+            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
         }
    }
 }

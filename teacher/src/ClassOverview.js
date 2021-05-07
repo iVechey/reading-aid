@@ -31,7 +31,7 @@ class ClassOverview extends React.Component {
             return classrooms.map((classroom, index) => {
                     return (
                         <tr data-index={index} key={"classroom-"+index}>
-                            <td><button className="link-button" onClick={this.props.showClassroom(classroom.code)}>{classroom.classroom_name}</button></td>
+                            <td><button className="link-button" onClick={() => {this.props.showClassroom(classroom.code)}}>{classroom.classroom_name}</button></td>
                             <td>{classroom.code}</td>
                             <td>{classroom.num_students}</td>
                         </tr>
