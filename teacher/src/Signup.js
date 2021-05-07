@@ -87,7 +87,7 @@ class Signup extends Component {
                 <div className="form-group">
                     <input name="password" type="password" className="form-control form-control-lg" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />
                 </div>
-                <a id="login-link" href="#" className="form-text text-muted" onClick={this.props.switchView}>Already have an account? Log in here</a>
+                <button id="login-link" type="button" className="form-text text-muted link-button" onClick={this.props.switchView}>Already have an account? Log in here</button>
                 <div className="form-group">
                     <input id="signup-submit" type="submit" className="btn btn-lg btn-secondary" value="CREATE" onClick={this.handleSubmit} />
                 </div>

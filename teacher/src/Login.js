@@ -50,7 +50,7 @@ class Login extends Component {
                 <div className="form-group">
                     <input name="password" type="password" className="form-control form-control-lg" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />
                 </div>
-                <a id="create-account-link" href="#" className="form-text text-muted" onClick={this.props.switchView}>Don't have an account? Create one here.</a>
+                <button id="create-account-link" type="button" className="form-text text-muted link-button" onClick={this.props.switchView}>Don't have an account? Create one here.</button>
                 <div className="form-group">
                     <input id="login-submit" type="submit" className="btn btn-lg btn-secondary" value="SUBMIT" onClick={this.handleSubmit} />
                 </div>
