@@ -16,7 +16,7 @@ class Home extends Component {
         this.state = {
             isCreatingClassroom: false,
             isShowingClassroom: false,
-            classroom: '',
+            classroom_code: '',
         }
     }
 
@@ -24,8 +24,8 @@ class Home extends Component {
         this.setState({ isCreatingClassroom: true });
     }
 
-    showClassroom(classroom_code) {
-        this.setState({ isShowingClassroom: true, classroom: classroom_code });
+    showClassroom(code) {
+        this.setState({ isShowingClassroom: true, classroom_code: code });
     }
 
     showDashboard() {
@@ -36,7 +36,7 @@ class Home extends Component {
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={firebase.auth().currentUser.uid} />;
         } else if(this.state.isShowingClassroom) {
-            return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} /> 
+            return <ShowClassroom code={this.state.classroom_code} showDashboard={this.showDashboard} /> 
         } else {
             return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
         }

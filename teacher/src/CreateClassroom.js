@@ -6,18 +6,31 @@ import "./Form.css";
 class CreateClassroom extends React.Component {
     constructor(props) {
         super(props);
+        this.getExistingClassrooms = this.getExistingClassrooms.bind(this);
         this.generateCode = this.generateCode.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             classroom_name: '',
+            existing_classrooms: [],
         };
+        this.getExistingClassrooms();
+    }
+
+    getExistingClassrooms() {
+        firebase.database().ref('classrooms').on('value', (snapshot) => {
+            if(snapshot.exists()) {
+                snapshot.forEach((child) => {
+                    this.state.existing_classrooms.push(child.val());
+                });
+            }
+        });
     }
 
     generateCode() {
-        // TODO these codes will need to be completely unique
-        var rand = Math.random().toString(16).substr(2, 12);
-        return rand.substr(0, 4) + "-" + rand.substr(4, 4) + "-" + rand.substr(8, 4);
+        return Math.random().toString(16).substr(2, 4) + "-" 
+        + Math.random().toString(16).substr(2, 4) + "-" 
+        + Math.random().toString(16).substr(2, 4);
     }
 
     handleInputChange(event) {
@@ -28,7 +41,10 @@ class CreateClassroom extends React.Component {
         event.preventDefault();
         // get info from form
         const classroom_name = this.state.classroom_name;
-        const code = this.generateCode();
+        var code;
+        do {
+            code = this.generateCode();
+        } while(this.state.existing_classrooms.includes(code));
         // create their classroom
         var ref = firebase.database().ref('teachers').child(this.props.uid);
         ref.child('classrooms').child(classroom_name).set({
@@ -36,7 +52,7 @@ class CreateClassroom extends React.Component {
             code: code,
             num_students: 0,
         });
-        var ref = firebase.database().ref('classrooms').child(code).set({
+        ref = firebase.database().ref('classrooms').child(code).set({
             classroom_name: classroom_name,
             code: code,
         });
