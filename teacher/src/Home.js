@@ -7,21 +7,28 @@ import ClassOverview from "./ClassOverview";
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.switchView = this.switchView.bind(this);
+        this.createClassroom = this.createClassroom.bind(this);
+        this.showDashboard = this.showDashboard.bind(this);
         this.state = {
             isCreatingClassroom: false,
         }
     }
 
-    switchView() {
+    createClassroom() {
         this.setState({ isCreatingClassroom: !this.state.isCreatingClassroom });
     }
 
+
+    showDashboard() {
+        this.setState({ isCreatingClassroom: false });
+    }
+
    render() {
+       console.log(this.state);
        if(this.state.isCreatingClassroom) {
-           return <CreateClassroom username={this.props.user} returnToDashboard={this.switchView} />;
+           return <CreateClassroom username={this.props.user} returnToDashboard={this.showDashboard} />;
         } else {
-           return <ClassOverview user={this.props.user} handleLogout={this.props.handleLogout} createClassroom={this.switchView} />;
+           return <ClassOverview user={this.props.user} handleLogout={this.props.handleLogout} createClassroom={this.createClassroom} />;
         }
    }
 }

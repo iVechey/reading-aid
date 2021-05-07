@@ -30,7 +30,7 @@ class Welcome extends Component {
         }
         return (
             <div>
-                <h2><strong>ReadingAid</strong></h2>
+                <h2 id="welcome-banner"><strong>ReadingAid</strong></h2>
                 {component}
             </div>
         );

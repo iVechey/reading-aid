@@ -1,20 +1,42 @@
-#logout-btn {
-    position: absolute;
-    top: 1%;
-    right: 2.5%;
+#welcome-banner {
+    margin-bottom: 5%;
 }
 
 #homepage-container {
     margin: 1%;
     position: relative;
     min-height: 50vh;
+    text-align: center;
 }
 
-#create-classroom-btn {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+#dashboard-buttons > * {
+    margin: 1%;
+}
+
+#create-classroom-submit {
+    margin-bottom: .25rem;
+}
+
+table {
+    margin: auto;
+    border: 1px solid #7b8d93;
+}
+
+table, th, td {
+    padding: 5px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    border-bottom: 1px solid #7b8d93;
+}
+
+tr:hover {
+    background-color: rgb(231, 231, 231);
+}
+
+th {
+    background-color: #7b8d93;
+    color: white;
 }
