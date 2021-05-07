@@ -30,42 +30,29 @@ class Signup extends Component {
         const first_name = this.state.first_name;
         const last_name = this.state.last_name;
         const email = this.state.email;
-        const username = this.state.username;
         const password = this.state.password;
-
-        var ref = firebase.database().ref('teachers');
-        var success = true;
-        
-        // check that the username isn't being used
-        ref.child(username).get().then((snapshot) => {
-            if(snapshot.exists()) {
-                alert("User '" + username + "' already exists, please pick a new username.");
-                success = false;
-            }
-        });
-        
-        // check that the email isn't being used
-        var query = ref.orderByChild('email').equalTo(email);
-        query.once('value', function(snapshot) {
-            if(snapshot.exists()) {
-                alert("That email is already in use.");
-                success = false;
-            }
-        });
-        
-        // if neither are in use, create a new user
-        if(success) {
-            ref.child(username).set({
-                first_name: first_name,
-                last_name: last_name, 
-                email: email,
-                username: username,
-                password: password,
+        var user;
+        // authenticate
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+            user = userCredential.user;
+            return user.updateProfile({
+                displayName: first_name + " " + last_name,
+            }).then(() =>{
+                console.log(user.displayName);
+                // also add an entry for this user in the database
+                firebase.database().ref('teachers').child(user.uid).set({
+                    username: user.displayName,
+                    email: user.email,
+                });
+                this.props.login();
+            }).catch((error) => {
+                console.log(error.message);
             });
-            alert("New user '" + username + "' created!");
-            // take them to login page
-            this.props.switchView();
-        }
+            
+        }).catch((error) => {
+            alert(error.message);
+        });
+        
     }
 
     render() {
@@ -80,9 +67,6 @@ class Signup extends Component {
                 </div>
                 <div className="form-group">
                     <input name="email" type="email" className="form-control form-control-lg" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
-                </div>
-                <div className="form-group">
-                    <input name="username" type="username" className="form-control form-control-lg" placeholder="Username" value={this.state.username} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                     <input name="password" type="password" className="form-control form-control-lg" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />

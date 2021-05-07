@@ -6,27 +6,22 @@ import Signup from "./Signup";
 class Welcome extends Component {
     constructor(props) {
         super(props);
-        this.handleCreate = this.handleCreate.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
+        this.switchView = this.switchView.bind(this);
         this.state = {
-            hasAccount: true,
+            showSignUp: false,
         }
     }
 
-    handleCreate() {
-        this.setState({ hasAccount: false });
-    }
-
-    handleLogin() {
-        this.setState({ hasAccount: true });
+    switchView() {
+        this.setState({ showSignUp: !this.state.showSignUp });
     }
 
     render() {
         let component;
-        if(this.state.hasAccount) {
-            component = <Login switchView={this.handleCreate} handleLogin={this.props.handleLogin} />;
+        if(!this.state.showSignUp) {
+            component = <Login switchView={this.switchView} login={this.props.login} />;
         } else {
-            component = <Signup switchView={this.handleLogin} />;
+            component = <Signup switchView={this.switchView} login={this.props.login} />;
         }
         return (
             <div>

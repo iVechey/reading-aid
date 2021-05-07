@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from "firebase/app";
 import "firebase/database";
+import "firebase/auth";
 
 class ClassOverview extends React.Component {
     constructor(props) {
@@ -9,8 +10,9 @@ class ClassOverview extends React.Component {
         this.getClassrooms = this.getClassrooms.bind(this);
         this.state = {
             classrooms: [],
+            user: firebase.auth().currentUser,
         }
-        this.getClassrooms(this.props.user);
+        this.getClassrooms(this.state.user.uid);
     }
 
     getClassrooms(user) {
@@ -31,7 +33,7 @@ class ClassOverview extends React.Component {
                         // TODO want to make this so you can click on the classroom's row to go to that specific classroom's page. 
                         // right now it either makes the table rows not appear or it gives a "maximum update depth error" for some reason.
                         <tr data-index={index} key={"classroom-"+index}>
-                            <td>{classroom.name}</td>
+                            <td>{classroom.classroom_name}</td>
                             <td>{classroom.code}</td>
                             <td>{classroom.num_students}</td>
                         </tr>
@@ -43,13 +45,10 @@ class ClassOverview extends React.Component {
     }
 
     render() {
-        return (
-            <div id="homepage-container" className="container-fluid">
-                <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.props.user}!</strong></h2>
-                <div id="dashboard-buttons">
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.createClassroom}>Create Classroom</button>
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.handleLogout}>Logout</button>
-                </div>
+        let showClassroomTable = null;
+        if(this.state.classrooms.length > 0) {
+            showClassroomTable = (
+            <div>
                 <h1>Your Classrooms</h1>
                 <table>
                     <thead>
@@ -63,6 +62,18 @@ class ClassOverview extends React.Component {
                         {this.renderRows()}
                     </tbody>
                 </table>
+            </div>
+            );
+        }
+        return (
+            <div id="homepage-container" className="container-fluid">
+                <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
+                <div id="dashboard-buttons">
+                    <button className="btn btn-lg btn-secondary" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create Classroom</button>
+                    <button className="btn btn-lg btn-secondary" onClick={this.props.logout}>Logout</button>
+                </div>
+                <div className="clear-fix"></div>
+                { showClassroomTable }
             </div>
         );
     }

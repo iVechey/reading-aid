@@ -7,7 +7,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,21 +23,15 @@ class Login extends Component {
     handleSubmit(event) {
         event.preventDefault();
         // get info from form
-		const username = this.state.username;
+		const email = this.state.email;
 		const password = this.state.password;
-		// don't try to submit an empty form
-        if(!(username === '' || password === '')) { 
-            // check that user w/ that username/password exists
-            const db = firebase.database();
-            db.ref('teachers').child(username).get().then((snapshot) => {
-                if(snapshot.exists() && snapshot.val().password === password) {
-                    // log the user in
-                    this.props.handleLogin(true, username);
-                } else {
-                    alert("Invalid username or password, please try again.");
-                }
-            });
-        }
+        // authenticate
+		firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+            // user has signed in
+            this.props.login();
+        }).catch((error) => {
+            alert(error.message);
+        });
     }
 
     render() {
@@ -45,7 +39,7 @@ class Login extends Component {
             <form id="login-form" className="text-center">
                 <legend><h3>Sign In</h3></legend>
                 <div className="form-group">
-                    <input name="username" type="username" className="form-control form-control-lg" placeholder="Username" value={this.state.username} onChange={this.handleInputChange} />
+                    <input name="email" type="email" className="form-control form-control-lg" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                     <input name="password" type="password" className="form-control form-control-lg" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import "./Home.css";
+import firebase from "firebase/app";
 import "firebase/database";
+import "firebase/auth";
 import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 
@@ -24,11 +26,10 @@ class Home extends Component {
     }
 
    render() {
-       console.log(this.state);
        if(this.state.isCreatingClassroom) {
-           return <CreateClassroom username={this.props.user} returnToDashboard={this.showDashboard} />;
+           return <CreateClassroom returnToDashboard={this.showDashboard} uid={firebase.auth().currentUser.uid} />;
         } else {
-           return <ClassOverview user={this.props.user} handleLogout={this.props.handleLogout} createClassroom={this.createClassroom} />;
+           return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} />;
         }
    }
 }

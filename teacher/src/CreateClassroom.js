@@ -10,7 +10,7 @@ class CreateClassroom extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            name: '',
+            classroom_name: '',
         };
     }
 
@@ -21,22 +21,22 @@ class CreateClassroom extends React.Component {
     }
 
     handleInputChange(event) {
-        this.setState({ name: event.target.value });
+        this.setState({ classroom_name: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         // get info from form
-        const name = this.state.name;
+        const classroom_name = this.state.classroom_name;
         const code = this.generateCode();
         // create their classroom
-        var ref = firebase.database().ref('teachers').child(this.props.username);
-        ref.child('classrooms').child(name).set({
-            name: name,
+        var ref = firebase.database().ref('teachers').child(this.props.uid);
+        ref.child('classrooms').child(classroom_name).set({
+            classroom_name: classroom_name,
             code: code,
             num_students: 0,
         });
-        alert("New classroom '" + name + "' created! Your code is: " + code);
+        alert("New classroom '" + classroom_name + "' created! Your code is: " + code);
         // take them back to overview page
         this.props.returnToDashboard();
     }
@@ -46,11 +46,11 @@ class CreateClassroom extends React.Component {
             <form id="create-classroom-form" className="text-center">
                 <legend><h3>Create a Classroom</h3></legend>
                 <div className="form-group">
-                    <input name="name" type="text" className="form-control form-control-lg" placeholder="Classroom Name" value={this.state.name} onChange={this.handleInputChange} />
+                    <input name="classroom_name" type="text" className="form-control form-control-lg" placeholder="Classroom Name" value={this.state.classroom_name} onChange={this.handleInputChange} />
                 </div>
-                <div className="form-group">
-                    <input id="create-classroom-submit" type="submit" className="btn btn-lg btn-secondary" value="Create Classroom" onClick={this.handleSubmit} />
-                    <button className="btn btn-lg btn-secondary mt-2" onClick={this.props.returnToDashboard}>Back</button>
+                <div id="create-classroom-btns" className="form-group">
+                    <button type="submit" className="btn btn-lg btn-secondary" onClick={this.handleSubmit}>Create Classroom</button>
+                    <button className="btn btn-lg btn-secondary" onClick={this.props.returnToDashboard}>Back</button>
                 </div>
             </form>
         );
