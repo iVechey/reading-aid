@@ -10,9 +10,8 @@
 }
 
 #dashboard-buttons {
-    display: flex;
     justify-content: space-between;
-    margin: 0 15%;
+    margin: auto;
 }
 
 #dashboard-buttons:first-child {
@@ -28,29 +27,28 @@
 }
 
 #create-classroom-btns {
-    display: flex;
     justify-content: space-between;
     width: 100%;
     margin-top: 0;
 }
 
-#create-classroom-btns:first-child {
-    float: left;
+#create-classroom-btns > * {
+    margin: 0 2%;
 }
 
-#create-classroom-btns:last-child {
-    float: right;
+
+#classrooms-table-container {
+    margin: auto;
 }
 
 table {
     margin: auto;
     border: 1px solid #7b8d93;
-    width: 60%;
     font-size: larger;
 }
 
 table, th, td {
-    padding: 5px;
+    padding: 5px 15px;
     border-collapse: collapse;
     text-align: center;
     table-layout: fixed;

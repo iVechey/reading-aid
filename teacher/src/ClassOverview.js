@@ -30,10 +30,8 @@ class ClassOverview extends React.Component {
         if(classrooms.length > 0) {
             return classrooms.map((classroom, index) => {
                     return (
-                        // TODO want to make this so you can click on the classroom's row to go to that specific classroom's page. 
-                        // right now it either makes the table rows not appear or it gives a "maximum update depth error" for some reason.
                         <tr data-index={index} key={"classroom-"+index}>
-                            <td>{classroom.classroom_name}</td>
+                            <td><button className="link-button" onClick={this.props.showClassroom(classroom.code)}>{classroom.classroom_name}</button></td>
                             <td>{classroom.code}</td>
                             <td>{classroom.num_students}</td>
                         </tr>
@@ -45,26 +43,6 @@ class ClassOverview extends React.Component {
     }
 
     render() {
-        let showClassroomTable = null;
-        if(this.state.classrooms.length > 0) {
-            showClassroomTable = (
-            <div>
-                <h1>Your Classrooms</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Number of Students</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
-            </div>
-            );
-        }
         return (
             <div id="homepage-container" className="container-fluid">
                 <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
@@ -73,7 +51,23 @@ class ClassOverview extends React.Component {
                     <button className="btn btn-lg btn-secondary" onClick={this.props.logout}>Logout</button>
                 </div>
                 <div className="clear-fix"></div>
-                { showClassroomTable }
+                { this.state.classrooms.length > 0 &&
+                    <div id="classrooms-table-container">
+                        <h1>Your Classrooms</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Number of Students</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderRows()}
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         );
     }
