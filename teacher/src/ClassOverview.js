@@ -30,8 +30,8 @@ class ClassOverview extends React.Component {
         if(classrooms.length > 0) {
             return classrooms.map((classroom, index) => {
                     return (
-                        <tr data-index={index} key={"classroom-"+index}>
-                            <td><button className="link-button" onClick={() => {this.props.showClassroom(classroom.code)}}>{classroom.classroom_name}</button></td>
+                        <tr role="button" tabindex="0" data-index={index} key={"classroom-"+index} onClick={() => {this.props.showClassroom(classroom.code)}}>
+                            <td>{classroom.classroom_name}</td>
                             <td>{classroom.code}</td>
                             <td>{classroom.num_students}</td>
                         </tr>
@@ -47,8 +47,8 @@ class ClassOverview extends React.Component {
             <div id="homepage-container" className="container-fluid">
                 <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
                 <div id="dashboard-buttons">
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create Classroom</button>
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.logout}>Logout</button>
+                    <button className="btn btn-lg readingaid-btn" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create Classroom</button>
+                    <button className="btn btn-lg readingaid-btn" onClick={this.props.logout}>Logout</button>
                 </div>
                 <div className="clear-fix"></div>
                 { this.state.classrooms.length > 0 &&

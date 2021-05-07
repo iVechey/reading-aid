@@ -36,6 +36,10 @@ class CreateClassroom extends React.Component {
             code: code,
             num_students: 0,
         });
+        var ref = firebase.database().ref('classrooms').child(code).set({
+            classroom_name: classroom_name,
+            code: code,
+        });
         alert("New classroom '" + classroom_name + "' created! Your code is: " + code);
         // take them back to overview page
         this.props.returnToDashboard();
@@ -49,8 +53,8 @@ class CreateClassroom extends React.Component {
                     <input name="classroom_name" type="text" className="form-control form-control-lg" placeholder="Classroom Name" value={this.state.classroom_name} onChange={this.handleInputChange} />
                 </div>
                 <div id="create-classroom-btns" className="form-group">
-                    <button type="submit" className="btn btn-lg btn-secondary" onClick={this.handleSubmit}>Create</button>
-                    <button className="btn btn-lg btn-secondary" onClick={this.props.returnToDashboard}>Back</button>
+                    <button type="submit" className="btn btn-lg readingaid-btn" onClick={this.handleSubmit}>Create</button>
+                    <button className="btn btn-lg readingaid-btn" onClick={this.props.returnToDashboard}>Back</button>
                 </div>
             </form>
         );

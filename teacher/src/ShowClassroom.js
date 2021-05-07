@@ -5,7 +5,7 @@ class ShowClassroom extends React.Component {
         return (
             <div className="text-center">
                 <h2>{this.props.classroom}</h2>
-                <button className="btn btn-secondary btn-lg" onClick={this.props.showDashboard}>Back</button>
+                <button className="btn readingaid-btn btn-lg" onClick={this.props.showDashboard}>Back</button>
             </div>
         );
     }

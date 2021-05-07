@@ -42,6 +42,7 @@
 }
 
 table {
+    table-layout: fixed;
     margin: auto;
     border: 1px solid #7b8d93;
     font-size: larger;
@@ -51,15 +52,15 @@ table, th, td {
     padding: 5px 15px;
     border-collapse: collapse;
     text-align: center;
-    table-layout: fixed;
 }
 
 th, td {
     border: 1px solid #7b8d93;
 }
 
-tr:hover {
+tbody > tr:hover, tbody >tr:focus {
     background-color: rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 th {
