@@ -18,7 +18,7 @@ class Home extends Component {
             uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
-            classroom_code: '',
+            classroom: null,
         }
     }
 
@@ -27,11 +27,22 @@ class Home extends Component {
     }
 
     showClassroom(code) {
-        this.setState({ isShowingClassroom: true, classroom_code: code });
+        console.log(code);
+        firebase.database().ref("classrooms/" + code).get().then((snapshot) => {
+            if(snapshot.exists()) {
+                var classroom = snapshot.val();
+                console.log(classroom);
+                this.setState({ isShowingClassroom: true, classroom: classroom });
+            } else {
+                console.log("Invalid code '" + code + "'");
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     showDashboard() {
-        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: '' });
+        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: null });
     }
 
     deleteClassroom(code) {
@@ -43,11 +54,15 @@ class Home extends Component {
         this.showDashboard();
     }
 
+    editClassroom(code) {
+
+    }
+
    render() {
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {
-            return <ShowClassroom code={this.state.classroom_code} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} /> 
+            return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} editClassroom={this.editClassroom} /> 
         } else {
             return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
         }

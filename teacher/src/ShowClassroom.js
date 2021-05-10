@@ -1,20 +1,15 @@
 import React from "react";
-import firebase from "firebase/app";
 import "firebase/database";
 
 class ShowClassroom extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            classroom: firebase.database().ref('classrooms').child(props.code),
-        };
-    }
     render() {
+        const classroom = this.props.classroom;
         return (
             <div className="text-center">
-                <h2>{this.props.code}</h2>
-                <button className="btn readingaid-btn btn-lg" onClick={this.props.showDashboard}>Back</button>
-                <button className="btn readingaid-btn btn-lg" onClick={() => {this.props.deleteClassroom(this.props.code)}}>DELETE</button>
+                <h1><strong>{classroom.name}</strong></h1>
+                <h3>{classroom.code}</h3>
+                <button className="btn readingaid-btn m-2" onClick={this.props.showDashboard}>Back</button>
+                <button className="btn readingaid-btn m-2" onClick={() => {this.props.deleteClassroom(classroom.code)}}>DELETE</button>
             </div>
         );
     }
