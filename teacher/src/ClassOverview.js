@@ -34,11 +34,10 @@ class ClassOverview extends React.Component {
 
     renderRows() {
         const classrooms = this.state.classrooms;
-        console.log(classrooms.length);
         return classrooms.map((classroom, index) => {
             return (
                 <tr role="button" tabIndex="0" data-index={index} key={"classroom-"+index} onClick={() => {this.props.showClassroom(classroom.code)}}>
-                        <td>{classroom.classroom_name}</td>
+                        <td>{classroom.name}</td>
                         <td>{classroom.code}</td>
                         <td>{classroom.num_students}</td>
                     </tr>
@@ -48,7 +47,6 @@ class ClassOverview extends React.Component {
         
     renderTable() {
         const classrooms = this.state.classrooms;
-        console.log(classrooms.length);
         if(classrooms.length > 0) {
             return (
                 <div id="classrooms-table-container">

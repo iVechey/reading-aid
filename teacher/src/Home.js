@@ -13,7 +13,9 @@ class Home extends Component {
         this.createClassroom = this.createClassroom.bind(this);
         this.showClassroom = this.showClassroom.bind(this);
         this.showDashboard = this.showDashboard.bind(this);
+        this.deleteClassroom = this.deleteClassroom.bind(this);
         this.state = {
+            uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
             classroom_code: '',
@@ -32,11 +34,20 @@ class Home extends Component {
         this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: '' });
     }
 
+    deleteClassroom(code) {
+        // delete from overall classrooms list
+        firebase.database().ref('classrooms').child(code).remove();
+        // delete from teacher's individual classroom list
+        firebase.database().ref('teachers').child(this.state.uid).child('classrooms').child(code).remove();
+        alert("Classroom '" + code + "' deleted.");
+        this.showDashboard();
+    }
+
    render() {
        if(this.state.isCreatingClassroom) {
-            return <CreateClassroom returnToDashboard={this.showDashboard} uid={firebase.auth().currentUser.uid} />;
+            return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {
-            return <ShowClassroom code={this.state.classroom_code} showDashboard={this.showDashboard} /> 
+            return <ShowClassroom code={this.state.classroom_code} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} /> 
         } else {
             return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
         }

@@ -10,11 +10,11 @@ class ShowClassroom extends React.Component {
         };
     }
     render() {
-        console.log("classroom: " + this.state.classroom);
         return (
             <div className="text-center">
                 <h2>{this.props.code}</h2>
                 <button className="btn readingaid-btn btn-lg" onClick={this.props.showDashboard}>Back</button>
+                <button className="btn readingaid-btn btn-lg" onClick={() => {this.props.deleteClassroom(this.props.code)}}>DELETE</button>
             </div>
         );
     }

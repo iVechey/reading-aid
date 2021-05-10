@@ -47,14 +47,15 @@ class CreateClassroom extends React.Component {
         } while(this.state.existing_classrooms.includes(code));
         // create their classroom
         var ref = firebase.database().ref('teachers').child(this.props.uid);
-        ref.child('classrooms').child(classroom_name).set({
-            classroom_name: classroom_name,
+        ref.child('classrooms').child(code).set({
+            name: classroom_name,
             code: code,
             num_students: 0,
         });
         ref = firebase.database().ref('classrooms').child(code).set({
-            classroom_name: classroom_name,
+            name: classroom_name,
             code: code,
+            owner: this.props.uid,
         });
         alert("New classroom '" + classroom_name + "' created! Your code is: " + code);
         // take them back to overview page
