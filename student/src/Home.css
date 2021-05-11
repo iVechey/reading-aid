@@ -1,0 +1,69 @@
+#welcome-banner {
+    margin-bottom: 5%;
+}
+
+#homepage-container {
+    margin: 1%;
+    position: relative;
+    min-height: 50vh;
+    text-align: center;
+}
+
+#dashboard-buttons {
+    justify-content: space-between;
+    margin: auto;
+}
+
+#dashboard-buttons:first-child {
+    float: left;
+}
+
+#dashboard-buttons:last-child {
+    float:right;
+}
+
+#dashboard-buttons > * {
+    margin: 1%;
+}
+
+#create-classroom-btns {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0;
+}
+
+#create-classroom-btns > * {
+    margin: 0 2%;
+}
+
+
+#classrooms-table-container {
+    margin: auto;
+}
+
+table {
+    table-layout: fixed;
+    margin: auto;
+    border: 1px solid #7b8d93;
+    font-size: larger;
+}
+
+table, th, td {
+    padding: 5px 15px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #7b8d93;
+}
+
+tbody > tr:hover, tbody >tr:focus {
+    background-color: rgb(231, 231, 231);
+    cursor: pointer;
+}
+
+th {
+    background-color: #7b8d93;
+    color: white;
+}
