@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase/app";
 import "firebase/database";
 import './Form.css'
+import Cleave from 'cleave.js/react';
 
 class Signup extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ class Signup extends Component {
             <form id="signup-form" className="text-center">
                 <legend><h3>Create an Account</h3></legend>
                 <div className="form-group">
-                    <input name="class_code" type="text" className="form-control form-control-lg" placeholder="Class Code" value={this.state.class_code} onChange={this.handleInputChange} />
+                    <Cleave name="class_code" options={{blocks: [4, 4, 4], delimiter: '-', uppercase: true}} className="form-control form-control-lg" maxLength="14" placeholder="Class Code" value={this.state.class_code} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                     <input name="first_name" type="text" className="form-control form-control-lg" placeholder="First Name" value={this.state.first_name} onChange={this.handleInputChange} />
