@@ -28,9 +28,9 @@ class CreateClassroom extends React.Component {
     }
 
     generateCode() {
-        return Math.random().toString(16).substr(2, 4) + "-" 
+        return (Math.random().toString(16).substr(2, 4) + "-" 
         + Math.random().toString(16).substr(2, 4) + "-" 
-        + Math.random().toString(16).substr(2, 4);
+        + Math.random().toString(16).substr(2, 4)).toUpperCase();
     }
 
     handleInputChange(event) {
