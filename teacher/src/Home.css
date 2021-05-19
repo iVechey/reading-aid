@@ -56,6 +56,10 @@
     background-color: rgb(231, 231, 231);
 }
 
+.list-group-item {
+    background-color: #cfd8dc;
+}
+
 table {
     table-layout: fixed;
     margin: auto;

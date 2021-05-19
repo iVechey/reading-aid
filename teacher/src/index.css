@@ -13,29 +13,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.link-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  display: inline;
-  margin: 0;
-  padding: 0;
-  color: #7b8d93;
-}
-
-.clear-fix {
-  clear: both;
-}
-
-.readingaid-btn {
-  background-color: #7b8d93;
-  color: white;
-}
-
-.readingaid-btn:hover:not(.accordion-button) {
-  border: 1px solid #7b8d93;
-  background-color: #f3f3f3;
-  color: #7b8d93;
-}

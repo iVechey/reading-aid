@@ -95,7 +95,7 @@ class Signup extends Component {
                 </div>
                 <button id="login-link" type="button" className="form-text text-muted link-button" onClick={this.props.switchView}>Already have an account? Log in here</button>
                 <div className="form-group">
-                    <input id="signup-submit" type="submit" className="btn btn-lg readingaid-btn" value="CREATE" onClick={this.handleSubmit} />
+                    <input id="signup-submit" type="submit" className="btn btn-lg light-btn" value="CREATE" onClick={this.handleSubmit} />
                 </div>
             </form>
         );

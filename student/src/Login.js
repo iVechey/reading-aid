@@ -46,7 +46,7 @@ class Login extends Component {
                 </div>
                 <button id="create-account-link" type="button" className="form-text text-muted link-button" onClick={this.props.switchView}>Don't have an account? Create one here.</button>
                 <div className="form-group">
-                    <input id="login-submit" type="submit" className="btn btn-lg readingaid-btn" value="SUBMIT" onClick={this.handleSubmit} />
+                    <input id="login-submit" type="submit" className="btn btn-lg light-btn" value="SUBMIT" onClick={this.handleSubmit} />
                 </div>
             </form>
         );

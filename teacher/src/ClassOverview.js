@@ -9,79 +9,69 @@ class ClassOverview extends React.Component {
         this.renderRows = this.renderRows.bind(this);
         this.renderTable = this.renderTable.bind(this);
         this.renderStudents = this.renderStudents.bind(this);
-        this.getClassrooms = this.getClassrooms.bind(this);
-        this.getStudents = this.getStudents.bind(this);
+        this.getData = this.getData.bind(this);
         this.state = {
             classrooms: [],
-            students: [[]],
+            students: [],
             user: firebase.auth().currentUser,
             loading: true,
         }
     }
 
     componentDidMount() {
-        this.getClassrooms();
-        this.getStudents();
+        this.getData();
     }
 
-    getClassrooms() {
-        let ref = firebase.database().ref("teachers/" + this.state.user.uid + "/classrooms");
-        ref.once('value').then(snapshot => {
+    getData() {
+        // retrieve classrooms for this user
+        var ref = firebase.database().ref("teachers/" + this.state.user.uid + "/classrooms");
+        ref.on('value', snapshot => {
             if(snapshot.exists()) {
                 snapshot.forEach(child => {
                     this.state.classrooms.push(child.val());
+                    this.state.students.push([]);
                 });
             }
-            this.setState({loading: false});
         });
-    }
+        console.log("classrooms:", this.state.classrooms);
 
-    getStudents() {
-        let ref = firebase.database().ref("classrooms");
-        const classrooms = this.state.classrooms;
-        const students = this.state.students;
-        console.log(classrooms);
-        console.log(students);
-        classrooms.forEach((classroom, index) => {
-            ref.child(classroom.code).once('value').then(snapshot => {
+        // retrieve the students that are in each class
+        ref = firebase.database().ref("classrooms");
+        this.state.classrooms.forEach((classroom, index) => {
+            ref.child(classroom.code).child('students').on('value', snapshot => {
                 if(snapshot.exists()) {
                     console.log(snapshot.val());
                     snapshot.forEach(child => {
-                        students[index].push(child.val());
+                        console.log(index + " " + this.state.students[index]);
+                        this.state.students[index].push(child.val());
                     });
-                } else {
-                    console.log("snapshot not found");
                 }
             });
         });
+        console.log("students:", this.state.students);
+        // tell the render function we're ready to load the retrieved data
         console.log("done loading");
         this.setState({loading: false});
     }
 
-    renderStudents(index) {
-        const students = this.state.students;
-        console.log(students);
-        return students.map((student, index) => {
-            return <li key={"student-" + index}>{student.name}</li>
+    renderStudents(i) {
+        return this.state.students[i].map((student, j) => {
+            return <button className="list-group-item list-group-item-action" key={"student-" + j}>{student.name}</button>
         });
     }
 
     renderRows() {
-        const classrooms = this.state.classrooms;
-        console.log("making rows");
-        return classrooms.map((classroom, index) => {
+        return this.state.classrooms.map((classroom, index) => {
             return (
                 <div className="accordion-item" key={classroom.code}>
                     <h2 className="accordion-header" id={"heading-" + index}>
-                        <button className="accordion-button readingaid-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse-" + index} aria-expanded="false" aria-controls={"collapse-" + index}>
+                        <button className="accordion-button dark-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse-" + index} aria-expanded="false" aria-controls={"collapse-" + index}>
                             {classroom.name} (Class Code: {classroom.code})
                         </button>
                     </h2>    
                     <div id={"collapse-" + index} className="accordion-collapse collapse" aria-labelledby={"heading-" + index} data-bs-parent="#classrooms-table-container">
-                        <div className="accordion-body">
-                            <ul className="list-group">
-                                {this.renderStudents(index)}
-                            </ul>
+                        <div className="list-group">
+                            {this.state.students[index].length > 0 ? this.renderStudents(index) : <strong>No Students Yet</strong>}
                         </div>
                     </div>
                 </div>
@@ -90,31 +80,23 @@ class ClassOverview extends React.Component {
         }
         
     renderTable() {
-        console.log("making table");
-        const classrooms = this.state.classrooms;
-        console.log(classrooms);
-        if(classrooms.length > 0) {
-            console.log("rendering table");
-            return (
-                <div id="classrooms-table-container" className="accordion">
-                    {this.renderRows()}
-                </div>
-            )
-        } else {
-            return null;
-        }
+        return (
+            <div id="classrooms-table-container" className="accordion">
+                {this.renderRows()}
+            </div>
+        )
     }
 
     render() {
         const loading = this.state.loading;
         return (
             <div id="homepage-container" className="container-fluid">
-                <button id="logout-btn" className="btn btn-lg readingaid-btn" onClick={this.props.logout}>Sign Out</button>
+                <button id="logout-btn" className="btn btn-lg light-btn" onClick={this.props.logout}>Sign Out</button>
                 <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
                 <div id="dashboard-buttons">
-                    <button className="btn btn-lg readingaid-btn" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create New Class</button>
-                    <button className="btn btn-lg readingaid-btn" onClick={this.props.viewTexts} uid={this.state.user.uid}>My Texts</button>
-                    <button className="btn btn-lg readingaid-btn" onClick={this.props.createText} uid={this.state.user.uid}>Add Text</button>
+                    <button className="btn btn-lg light-btn" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create New Class</button>
+                    <button className="btn btn-lg light-btn" onClick={this.props.viewTexts} uid={this.state.user.uid}>My Texts</button>
+                    <button className="btn btn-lg light-btn" onClick={this.props.createText} uid={this.state.user.uid}>Add Text</button>
                 </div>
                 <div className="clear-fix"></div>
                 {!loading && this.renderTable()}

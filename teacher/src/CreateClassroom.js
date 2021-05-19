@@ -70,8 +70,8 @@ class CreateClassroom extends React.Component {
                     <input name="classroom_name" type="text" className="form-control form-control-lg" placeholder="Classroom Name" value={this.state.classroom_name} onChange={this.handleInputChange} />
                 </div>
                 <div id="create-classroom-btns" className="form-group">
-                    <button type="submit" className="btn btn-lg readingaid-btn" onClick={this.handleSubmit}>Create</button>
-                    <button className="btn btn-lg readingaid-btn" onClick={this.props.returnToDashboard}>Back</button>
+                    <button type="submit" className="btn btn-lg dark-btn" onClick={this.handleSubmit}>Create</button>
+                    <button className="btn btn-lg dark-btn" onClick={this.props.returnToDashboard}>Back</button>
                 </div>
             </form>
         );
