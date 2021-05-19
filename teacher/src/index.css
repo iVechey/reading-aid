@@ -34,7 +34,7 @@ code {
   color: white;
 }
 
-.readingaid-btn:hover {
+.readingaid-btn:hover:not(.accordion-button) {
   border: 1px solid #7b8d93;
   background-color: #f3f3f3;
   color: #7b8d93;

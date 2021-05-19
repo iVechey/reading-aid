@@ -6,6 +6,8 @@ import "firebase/auth";
 import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
+import ViewTexts from "./ViewTexts";
+import CreateText from "./CreateText";
 
 class Home extends Component {
     constructor(props) {
@@ -18,6 +20,8 @@ class Home extends Component {
             uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
+            isViewingTexts: false,
+            isCreatingText: false,
             classroom: null,
         }
     }
@@ -41,8 +45,16 @@ class Home extends Component {
         });
     }
 
+    viewTexts() {
+        this.setState({ isViewingTexts: true});
+    }
+
+    createText() {
+        this.setState({ isCreatingText: true });
+    }
+
     showDashboard() {
-        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: null });
+        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, isViewingTexts: false, isCreatingText: false, classroom: null });
     }
 
     deleteClassroom(code) {
@@ -54,15 +66,15 @@ class Home extends Component {
         this.showDashboard();
     }
 
-    editClassroom(code) {
-
-    }
-
    render() {
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {
             return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} editClassroom={this.editClassroom} /> 
+        } else if(this.state.isViewingTexts) {
+            return <ViewTexts uid={this.state.currentUser.uid} />;
+        } else if(this.state.isCreatingText) {
+            return <CreateText uid={this.state.currentUser.uid} />;
         } else {
             return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
         }

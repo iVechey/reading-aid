@@ -39,6 +39,21 @@
 
 #classrooms-table-container {
     margin: auto;
+    width: 70%;
+}
+
+#logout-btn {
+    float: right;
+    margin-right: 2%;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #7b8d93;
+    color: white;
+}
+
+.accordion-body {
+    background-color: rgb(231, 231, 231);
 }
 
 table {
