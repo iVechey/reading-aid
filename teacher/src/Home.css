@@ -52,12 +52,9 @@
     color: white;
 }
 
-.accordion-body {
-    background-color: rgb(231, 231, 231);
-}
-
 .list-group-item {
     background-color: #cfd8dc;
+    color: #7b8d93;
 }
 
 table {

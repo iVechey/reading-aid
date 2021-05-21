@@ -6,14 +6,12 @@ import "firebase/auth";
 class ClassOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.renderRows = this.renderRows.bind(this);
-        this.renderTable = this.renderTable.bind(this);
-        this.renderStudents = this.renderStudents.bind(this);
         this.getData = this.getData.bind(this);
+        this.renderStudents = this.renderStudents.bind(this);
+        this.showData = this.showData.bind(this);
         this.state = {
-            classrooms: [],
-            students: [],
             user: firebase.auth().currentUser,
+            classrooms: null,
             loading: true,
         }
     }
@@ -23,45 +21,26 @@ class ClassOverview extends React.Component {
     }
 
     getData() {
-        // retrieve classrooms for this user
-        var ref = firebase.database().ref("teachers/" + this.state.user.uid + "/classrooms");
-        ref.on('value', snapshot => {
-            if(snapshot.exists()) {
-                snapshot.forEach(child => {
-                    this.state.classrooms.push(child.val());
-                    this.state.students.push([]);
-                });
-            }
+        let ref = firebase.database().ref("teachers").child(this.state.user.uid);
+        ref.once("value").then(snapshot => {
+            this.response = snapshot.val()["classrooms"];
+            this.setState({ classrooms: this.response, loading: false, });
         });
-        console.log("classrooms:", this.state.classrooms);
-
-        // retrieve the students that are in each class
-        ref = firebase.database().ref("classrooms");
-        this.state.classrooms.forEach((classroom, index) => {
-            ref.child(classroom.code).child('students').on('value', snapshot => {
-                if(snapshot.exists()) {
-                    console.log(snapshot.val());
-                    snapshot.forEach(child => {
-                        console.log(index + " " + this.state.students[index]);
-                        this.state.students[index].push(child.val());
-                    });
-                }
-            });
-        });
-        console.log("students:", this.state.students);
-        // tell the render function we're ready to load the retrieved data
-        console.log("done loading");
-        this.setState({loading: false});
     }
 
     renderStudents(i) {
-        return this.state.students[i].map((student, j) => {
-            return <button className="list-group-item list-group-item-action" key={"student-" + j}>{student.name}</button>
-        });
+        const classroom = Object.values(this.state.classrooms)[i];
+        return classroom.students ? (
+                Object.values(classroom.students).map((student, j) => {
+                    return <button className="list-group-item list-group-item-action" key={"student-" + j}><image></image><strong>{student.name}</strong></button>
+                })
+         ) : ( 
+         <span><strong>No students yet</strong></span>
+          );
     }
 
-    renderRows() {
-        return this.state.classrooms.map((classroom, index) => {
+    showData() {
+        return Object.values(this.state.classrooms).map((classroom, index) => {
             return (
                 <div className="accordion-item" key={classroom.code}>
                     <h2 className="accordion-header" id={"heading-" + index}>
@@ -71,21 +50,13 @@ class ClassOverview extends React.Component {
                     </h2>    
                     <div id={"collapse-" + index} className="accordion-collapse collapse" aria-labelledby={"heading-" + index} data-bs-parent="#classrooms-table-container">
                         <div className="list-group">
-                            {this.state.students[index].length > 0 ? this.renderStudents(index) : <strong>No Students Yet</strong>}
+                            {this.renderStudents(index)}
                         </div>
                     </div>
                 </div>
                 );
             });
         }
-        
-    renderTable() {
-        return (
-            <div id="classrooms-table-container" className="accordion">
-                {this.renderRows()}
-            </div>
-        )
-    }
 
     render() {
         const loading = this.state.loading;
@@ -99,7 +70,9 @@ class ClassOverview extends React.Component {
                     <button className="btn btn-lg light-btn" onClick={this.props.createText} uid={this.state.user.uid}>Add Text</button>
                 </div>
                 <div className="clear-fix"></div>
-                {!loading && this.renderTable()}
+                <div id="classrooms-table-container" className="accordion">
+                    {!loading && this.showData()}
+                </div>
             </div>
         );
     }
