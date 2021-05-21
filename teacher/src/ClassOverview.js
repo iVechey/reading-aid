@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
+import { BsChevronRight, BsPeopleCircle } from "react-icons/bs";
 
 class ClassOverview extends React.Component {
     constructor(props) {
@@ -32,7 +33,13 @@ class ClassOverview extends React.Component {
         const classroom = Object.values(this.state.classrooms)[i];
         return classroom.students ? (
                 Object.values(classroom.students).map((student, j) => {
-                    return <button className="list-group-item list-group-item-action" key={"student-" + j}><image></image><strong>{student.name}</strong></button>
+                    return (
+                        <button className="list-group-item list-group-item-action" key={"student-" + j} onClick={() => {this.props.showStudent(student.uid)}}>
+                            <BsPeopleCircle />
+                            <strong>{student.name}</strong>
+                            <BsChevronRight />
+                        </button>
+                    )
                 })
          ) : ( 
          <span><strong>No students yet</strong></span>
@@ -65,9 +72,8 @@ class ClassOverview extends React.Component {
                 <button id="logout-btn" className="btn btn-lg light-btn" onClick={this.props.logout}>Sign Out</button>
                 <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
                 <div id="dashboard-buttons">
-                    <button className="btn btn-lg light-btn" onClick={this.props.createClassroom} uid={this.state.user.uid}>Create New Class</button>
-                    <button className="btn btn-lg light-btn" onClick={this.props.viewTexts} uid={this.state.user.uid}>My Texts</button>
-                    <button className="btn btn-lg light-btn" onClick={this.props.createText} uid={this.state.user.uid}>Add Text</button>
+                    <button className="btn btn-lg light-btn" onClick={this.props.createClassroom}>Create New Class</button>
+                    <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button>
                 </div>
                 <div className="clear-fix"></div>
                 <div id="classrooms-table-container" className="accordion">

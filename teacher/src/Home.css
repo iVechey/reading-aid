@@ -57,6 +57,19 @@
     color: #7b8d93;
 }
 
+svg:first-child {
+    float: left;
+}
+
+.list-group-item > svg {
+    height: 24px;
+    width: 24px;
+}
+
+svg:last-child {
+    float: right;
+}
+
 table {
     table-layout: fixed;
     margin: auto;
