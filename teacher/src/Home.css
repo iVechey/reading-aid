@@ -39,6 +39,35 @@
 
 #classrooms-table-container {
     margin: auto;
+    width: 70%;
+}
+
+#logout-btn {
+    float: right;
+    margin-right: 2%;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #7b8d93;
+    color: white;
+}
+
+.list-group-item {
+    background-color: #cfd8dc;
+    color: #7b8d93;
+}
+
+svg:first-child {
+    float: left;
+}
+
+.list-group-item > svg {
+    height: 24px;
+    width: 24px;
+}
+
+svg:last-child {
+    float: right;
 }
 
 table {

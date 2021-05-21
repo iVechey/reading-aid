@@ -27,3 +27,34 @@
     transform: rotate(360deg);
   }
 }
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  color: #cfd8dc;
+}
+
+.clear-fix {
+  clear: both;
+}
+
+.light-btn {
+  background-color: #cfd8dc;
+  color: #7b8d93;
+}
+
+.dark-btn {
+  background-color: #7b8d93;
+  color: white;
+}
+
+.dark-btn:hover:not(.accordion-button), .light-btn:hover {
+  border: 1px solid #7b8d93;
+  background-color: #f3f3f3;
+  color: #7b8d93;
+}
