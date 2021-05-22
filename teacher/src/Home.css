@@ -47,17 +47,12 @@
     margin-right: 2%;
 }
 
-.accordion-button:not(.collapsed) {
-    background-color: #7b8d93;
-    color: white;
-}
-
 .list-group-item {
     background-color: #cfd8dc;
     color: #7b8d93;
 }
 
-svg:first-child {
+.list-group-item > svg:first-child {
     float: left;
 }
 
@@ -66,33 +61,84 @@ svg:first-child {
     width: 24px;
 }
 
-svg:last-child {
+.list-group-item > svg:last-child {
     float: right;
 }
 
-table {
-    table-layout: fixed;
-    margin: auto;
-    border: 1px solid #7b8d93;
-    font-size: larger;
+#back-arrow {
+    height: 7.5%;
+    width: 7.5%;
 }
 
-table, th, td {
-    padding: 5px 15px;
-    border-collapse: collapse;
-    text-align: center;
+#back-arrow > svg {
+    color: black;
+    height: 100%;
+    width: 100%;
+}
+
+#student-info {
+    display: flex;
+}
+
+#photo-container {
+    border-radius: .3rem;
+    background-color: #cfd8dc;
+    height: 200px;
+    width: 200px;
+}
+
+#photo-container > svg {
+    color: white;
+    height: 50%;
+    width: 50%;
+    margin: 50px;
+}
+
+#name-container {
+    padding-left: 10px;
+}
+
+#student-view-container {
+    margin: 3.5%;
+}
+
+#stats-table {
+    width: 50%;
+    background-color: ghostwhite;
+}
+
+#recording-view-container {
+    position: absolute;
+    right: 0;
+    margin-right: 10%;
+    height: 40vh;
+    width: 30vw;
+}
+
+#recording-view {
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 30pt;
+    display: flex;
+    background-color: #cfd8dc;
+}
+#recording-controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 25%;
+    margin: auto;
+    margin-top: 2%;
+    font-size: 25pt;
+}
+
+svg:nth-child(2) {
+    font-size: 40pt;
 }
 
 th, td {
-    border: 1px solid #7b8d93;
-}
-
-tbody > tr:hover, tbody >tr:focus {
-    background-color: rgb(231, 231, 231);
-    cursor: pointer;
-}
-
-th {
-    background-color: #7b8d93;
-    color: white;
+    padding: 2%;
+    min-width: 7.5%;
 }

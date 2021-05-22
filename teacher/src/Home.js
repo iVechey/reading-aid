@@ -8,6 +8,7 @@ import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
 import ViewTexts from "./ViewTexts";
 import SpecificStudentView from "./SpecificStudentView";
+import AssignTexts from "./AssignTexts";
 
 class Home extends React.Component {
     constructor(props) {
@@ -18,12 +19,14 @@ class Home extends React.Component {
         this.showDashboard = this.showDashboard.bind(this);
         this.deleteClassroom = this.deleteClassroom.bind(this);
         this.showStudent = this.showStudent.bind(this);
+        this.assignTexts = this.assignTexts.bind(this);
         this.state = {
             uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
             isViewingTexts: false,
             isShowingStudent: false,
+            isAssigningTexts: false,
             currentClassroom: null,
             currentStudent: null,
         }
@@ -58,6 +61,7 @@ class Home extends React.Component {
             isShowingClassroom: false, 
             isViewingTexts: false, 
             isShowingStudent: false, 
+            isAssigningTexts: false,
             currentClassroom: null,
             currentStudent: null });
     }
@@ -75,6 +79,10 @@ class Home extends React.Component {
         this.setState({ isShowingStudent: true, currentStudent: student_id });
     }
 
+    assignTexts() {
+        this.setState({ isShowingStudent: false, isAssigningTexts: true });
+    }
+
    render() {
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
@@ -83,8 +91,10 @@ class Home extends React.Component {
         } else if(this.state.isViewingTexts) {
             return <ViewTexts uid={this.state.uid} showDashboard={this.showDashboard} />;
         } else if(this.state.isShowingStudent) {
-            return <SpecificStudentView uid={this.state.currentStudent} showDashboard={this.showDashboard} />;
-        } else {
+            return <SpecificStudentView uid={this.state.currentStudent} showDashboard={this.showDashboard} assignTexts={this.assignTexts} />;
+        } else if(this.state.isAssigningTexts) {
+            return <AssignTexts uid={this.state.uid} showDashboard={this.showDashboard} />;
+        }else {
             return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showStudent={this.showStudent} viewTexts={this.viewTexts} />;
         }
    }

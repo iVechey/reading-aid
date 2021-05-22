@@ -45,16 +45,18 @@
 
 .light-btn {
   background-color: #cfd8dc;
-  color: #7b8d93;
+  color: #7b8d93 !important;
+  border: 1px solid transparent;
 }
 
 .dark-btn {
   background-color: #7b8d93;
   color: white;
+  border: 1px solid transparent;
 }
 
-.dark-btn:hover:not(.accordion-button), .light-btn:hover {
-  border: 1px solid #7b8d93;
-  background-color: #f3f3f3;
+.dark-btn:hover, .light-btn:hover, .dark-btn:focus, .light-btn:focus {
+  border: 1px solid #7b8d93 !important;
+  background-color: #f3f3f3 !important;
   color: #7b8d93;
 }

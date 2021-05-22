@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import { BsChevronRight, BsPeopleCircle } from "react-icons/bs";
+import { Accordion, Card, ListGroup, Button } from "react-bootstrap"
 
 class ClassOverview extends React.Component {
     constructor(props) {
@@ -34,11 +35,11 @@ class ClassOverview extends React.Component {
         return classroom.students ? (
                 Object.values(classroom.students).map((student, j) => {
                     return (
-                        <button className="list-group-item list-group-item-action" key={"student-" + j} onClick={() => {this.props.showStudent(student.uid)}}>
+                        <ListGroup.Item action as="button" key={"student-" + j} onClick={() => {this.props.showStudent(student.uid)}}>
                             <BsPeopleCircle />
                             <strong>{student.name}</strong>
                             <BsChevronRight />
-                        </button>
+                        </ListGroup.Item>
                     )
                 })
          ) : ( 
@@ -47,22 +48,24 @@ class ClassOverview extends React.Component {
     }
 
     showData() {
-        return Object.values(this.state.classrooms).map((classroom, index) => {
-            return (
-                <div className="accordion-item" key={classroom.code}>
-                    <h2 className="accordion-header" id={"heading-" + index}>
-                        <button className="accordion-button dark-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#collapse-" + index} aria-expanded="false" aria-controls={"collapse-" + index}>
+        return (
+            <Accordion id="classrooms-table-container">
+               {Object.values(this.state.classrooms).map((classroom, index) => {
+                return (
+                    <Card key={classroom.code}>
+                        <Accordion.Toggle as={Button} variant="secondary" eventKey={""+index}>
                             {classroom.name} (Class Code: {classroom.code})
-                        </button>
-                    </h2>    
-                    <div id={"collapse-" + index} className="accordion-collapse collapse" aria-labelledby={"heading-" + index} data-bs-parent="#classrooms-table-container">
-                        <div className="list-group">
-                            {this.renderStudents(index)}
-                        </div>
-                    </div>
-                </div>
-                );
-            });
+                        </Accordion.Toggle>     
+                        <Accordion.Collapse eventKey={""+index}>
+                            <ListGroup variant="flush">
+                                {this.renderStudents(index)}
+                            </ListGroup>
+                        </Accordion.Collapse>
+                    </Card>
+                    );
+                })}
+            </Accordion>        
+            )
         }
 
     render() {
@@ -76,9 +79,7 @@ class ClassOverview extends React.Component {
                     <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button>
                 </div>
                 <div className="clear-fix"></div>
-                <div id="classrooms-table-container" className="accordion">
-                    {!loading && this.showData()}
-                </div>
+                {!loading && this.showData()}
             </div>
         );
     }
