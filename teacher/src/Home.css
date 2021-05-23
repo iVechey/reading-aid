@@ -41,6 +41,18 @@
     margin: auto;
 }
 
+#add-row{
+    font-size: 20px;
+    background-color: #7b8d93;
+    color: white;
+}
+
+#btn-circle{
+    float: right;
+    margin-top:5px;
+    margin-left:10px;
+}
+
 table {
     table-layout: fixed;
     margin: auto;

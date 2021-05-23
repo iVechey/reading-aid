@@ -39,3 +39,12 @@ code {
   background-color: #f3f3f3;
   color: #7b8d93;
 }
+
+.textBox{
+  background-color: white;
+  border: 1px solid #7b8d93;
+  outline: none;
+  resize: none;
+  width: 500px;
+  height: 250px;
+}

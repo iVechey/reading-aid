@@ -6,6 +6,7 @@ import "firebase/auth";
 import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
+import AssignText from "./AssignText";
 
 class Home extends Component {
     constructor(props) {
@@ -14,10 +15,12 @@ class Home extends Component {
         this.showClassroom = this.showClassroom.bind(this);
         this.showDashboard = this.showDashboard.bind(this);
         this.deleteClassroom = this.deleteClassroom.bind(this);
+        this.showAssignText = this.showAssignText.bind(this); //do i need this here?
         this.state = {
             uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
+            isAssigningText:false,
             classroom: null,
         }
     }
@@ -42,7 +45,7 @@ class Home extends Component {
     }
 
     showDashboard() {
-        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: null });
+        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: null, isAssigningText:false});
     }
 
     deleteClassroom(code) {
@@ -58,13 +61,26 @@ class Home extends Component {
 
     }
 
+    showAssignText(){
+        console.debug("gets to showassingtext");
+        this.setState({isAssigningText: true});
+    }
+
+    addText(){
+        this.setState({isAddingText:true});
+    }
+
    render() {
+    console.log("gets to assiggnTExt function");
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {
             return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} editClassroom={this.editClassroom} /> 
-        } else {
-            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} />;
+        } else if(this.state.isAssigningText){
+            return <AssignText showDashboard={this.showDashboard} uid={this.state.uid} />
+        } 
+        else {
+            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showAssignText={this.showAssignText}/>;
         }
    }
 }
