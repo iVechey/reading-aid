@@ -30,6 +30,7 @@ class App extends React.Component {
 		});
 	}
 
+	// if user logged in display home page, else display login on Welcome
 	render() {
 		return this.state.user ? <Home logout={this.logout} /> : <Welcome login={this.login} />;
 	}

@@ -12,6 +12,11 @@ class Home extends Component {
         }
     }
 
+// TODO: for each text assigned to user, display a clickable logo
+// TODO: on clicking logo redirect user to page for that text
+// TODO: under logo display a checkmark for each time read
+// TODO: on reaching timesRead == 3 make logo no longer clickable
+
    render() {
        return <h2>Welcome {this.state.user.displayName}!</h2>;
    }
