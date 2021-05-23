@@ -48,7 +48,7 @@ class ClassOverview extends React.Component {
     }
 
     showData() {
-        return (
+        return this.state.classrooms ? (
             <Accordion id="classrooms-table-container">
                {Object.values(this.state.classrooms).map((classroom, index) => {
                 return (
@@ -65,7 +65,7 @@ class ClassOverview extends React.Component {
                     );
                 })}
             </Accordion>        
-            )
+            ) : null;
         }
 
     render() {
