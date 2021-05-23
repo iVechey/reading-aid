@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React from "react";
 import "./Home.css";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -7,21 +7,30 @@ import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
 import AssignText from "./AssignText";
+import ViewTexts from "./ViewTexts";
+import SpecificStudentView from "./SpecificStudentView";
+// import AssignTexts from "./AssignTexts";
 
-class Home extends Component {
+class Home extends React.Component {
     constructor(props) {
         super(props);
         this.createClassroom = this.createClassroom.bind(this);
         this.showClassroom = this.showClassroom.bind(this);
+        this.viewTexts = this.viewTexts.bind(this);
         this.showDashboard = this.showDashboard.bind(this);
         this.deleteClassroom = this.deleteClassroom.bind(this);
         this.showAssignText = this.showAssignText.bind(this); //do i need this here?
+        this.showStudent = this.showStudent.bind(this);
+        this.assignTexts = this.assignTexts.bind(this);
         this.state = {
             uid: firebase.auth().currentUser.uid,
             isCreatingClassroom: false,
             isShowingClassroom: false,
-            isAssigningText:false,
-            classroom: null,
+            isViewingTexts: false,
+            isShowingStudent: false,
+            isAssigningTexts: false,
+            currentClassroom: null,
+            currentStudent: null,
         }
     }
 
@@ -35,7 +44,7 @@ class Home extends Component {
             if(snapshot.exists()) {
                 var classroom = snapshot.val();
                 console.log(classroom);
-                this.setState({ isShowingClassroom: true, classroom: classroom });
+                this.setState({ isShowingClassroom: true, currentClassroom: classroom });
             } else {
                 console.log("Invalid code '" + code + "'");
             }
@@ -44,8 +53,19 @@ class Home extends Component {
         });
     }
 
+    viewTexts() {
+        this.setState({ isViewingTexts: true });
+    }
+
     showDashboard() {
-        this.setState({ isCreatingClassroom: false, isShowingClassroom: false, classroom: null, isAssigningText:false});
+        this.setState({ 
+            isCreatingClassroom: false, 
+            isShowingClassroom: false, 
+            isViewingTexts: false, 
+            isShowingStudent: false, 
+            isAssigningTexts: false,
+            currentClassroom: null,
+            currentStudent: null });
     }
 
     deleteClassroom(code) {
@@ -57,8 +77,12 @@ class Home extends Component {
         this.showDashboard();
     }
 
-    editClassroom(code) {
+    showStudent(student_id) {
+        this.setState({ isShowingStudent: true, currentStudent: student_id });
+    }
 
+    assignTexts() {
+        this.setState({ isShowingStudent: false, isAssigningTexts: true });
     }
 
     showAssignText(){
@@ -75,12 +99,15 @@ class Home extends Component {
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {
-            return <ShowClassroom classroom={this.state.classroom} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} editClassroom={this.editClassroom} /> 
-        } else if(this.state.isAssigningText){
-            return <AssignText showDashboard={this.showDashboard} uid={this.state.uid} />
-        } 
-        else {
-            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showAssignText={this.showAssignText}/>;
+            return <ShowClassroom classroom={this.state.currentClassroom} showDashboard={this.showDashboard} deleteClassroom={this.deleteClassroom} editClassroom={this.editClassroom} /> 
+        } else if(this.state.isViewingTexts) {
+            return <ViewTexts uid={this.state.uid} showDashboard={this.showDashboard} />;
+        } else if(this.state.isShowingStudent) {
+            return <SpecificStudentView uid={this.state.currentStudent} showDashboard={this.showDashboard} assignTexts={this.assignTexts} />;
+        } else if(this.state.isAssigningTexts) {
+            return <AssignText uid={this.state.uid} showDashboard={this.showDashboard} />;
+        }else {
+            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showStudent={this.showStudent} viewTexts={this.viewTexts} />;
         }
    }
 }

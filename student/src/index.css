@@ -27,13 +27,14 @@ code {
   clear: both;
 }
 
-.readingaid-btn {
+.light-btn {
   background-color: #7b8d93;
   color: white;
 }
 
-.readingaid-btn:hover {
+.light-btn:hover {
   border: 1px solid #7b8d93;
   background-color: #f3f3f3;
   color: #7b8d93;
 }
+

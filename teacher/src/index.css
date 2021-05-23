@@ -14,7 +14,7 @@ code {
     monospace;
 }
 
-.link-button {
+/* .link-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -38,7 +38,7 @@ code {
   border: 1px solid #7b8d93;
   background-color: #f3f3f3;
   color: #7b8d93;
-}
+} */
 
 .textBox{
   background-color: white;

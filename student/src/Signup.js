@@ -50,18 +50,14 @@ class Signup extends Component {
                             email: user.email,
                             classroom_code: class_code,
                         });
-                        // add this student to the specified classroom
-                        ref.child('students').child(user.uid).set({
-                            name: user.displayName,
-                            uid: user.uid,
-                        });
-                        // update the student count in the teacher's classroom
+                        // add the student to this classroom
                         ref.child('owner').get().then(snapshot => {
                             if(snapshot.exists()) {
-                                const updates = {};
                                 const teacher_uid = snapshot.val();
-                                updates["teachers/"+teacher_uid+"/classrooms/"+class_code+"/num_students"] = firebase.database.ServerValue.increment(1);
-                                firebase.database().ref().update(updates);
+                                firebase.database().ref("teachers/" + teacher_uid + "/classrooms/" + class_code + "/students/" + user.uid).set({
+                                    name: user.displayName,
+                                    uid: user.uid,
+                                })
                             }
                         });
                         // redirect to login page
@@ -95,7 +91,7 @@ class Signup extends Component {
                 </div>
                 <button id="login-link" type="button" className="form-text text-muted link-button" onClick={this.props.switchView}>Already have an account? Log in here</button>
                 <div className="form-group">
-                    <input id="signup-submit" type="submit" className="btn btn-lg readingaid-btn" value="CREATE" onClick={this.handleSubmit} />
+                    <input id="signup-submit" type="submit" className="btn btn-lg light-btn" value="CREATE" onClick={this.handleSubmit} />
                 </div>
             </form>
         );
