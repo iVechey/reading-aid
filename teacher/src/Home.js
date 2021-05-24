@@ -7,8 +7,9 @@ import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
 import AssignText from "./AssignText";
-import ViewTexts from "./ViewTexts";
+import ViewTexts from "./ViewTexts";//what is this supposed to be?
 import SpecificStudentView from "./SpecificStudentView";
+import AddText from "./AddText";
 // import AssignTexts from "./AssignTexts";
 
 class Home extends React.Component {
@@ -17,9 +18,10 @@ class Home extends React.Component {
         this.createClassroom = this.createClassroom.bind(this);
         this.showClassroom = this.showClassroom.bind(this);
         this.viewTexts = this.viewTexts.bind(this);
+        this.addText = this.addText.bind(this);
         this.showDashboard = this.showDashboard.bind(this);
         this.deleteClassroom = this.deleteClassroom.bind(this);
-        this.showAssignText = this.showAssignText.bind(this); //do i need this here?
+        // this.showAssignText = this.showAssignText.bind(this); //do i need this here?
         this.showStudent = this.showStudent.bind(this);
         this.assignTexts = this.assignTexts.bind(this);
         this.state = {
@@ -29,6 +31,7 @@ class Home extends React.Component {
             isViewingTexts: false,
             isShowingStudent: false,
             isAssigningTexts: false,
+            isAddingText:false,
             currentClassroom: null,
             currentStudent: null,
         }
@@ -82,17 +85,14 @@ class Home extends React.Component {
     }
 
     assignTexts() {
-        this.setState({ isShowingStudent: false, isAssigningTexts: true });
-    }
-
-    showAssignText(){
-        console.debug("gets to showassingtext");
-        this.setState({isAssigningText: true});
+        this.setState({ isShowingStudent: false, isAddingText:false, isAssigningTexts: true });
     }
 
     addText(){
-        this.setState({isAddingText:true});
+        this.setState({isAssigningTexts: false ,isAddingText:true});
     }
+
+
 
    render() {
     console.log("gets to assiggnTExt function");
@@ -105,9 +105,11 @@ class Home extends React.Component {
         } else if(this.state.isShowingStudent) {
             return <SpecificStudentView uid={this.state.currentStudent} showDashboard={this.showDashboard} assignTexts={this.assignTexts} />;
         } else if(this.state.isAssigningTexts) {
-            return <AssignText uid={this.state.uid} showDashboard={this.showDashboard} />;
+            return <AssignText uid={this.state.uid} showDashboard={this.showDashboard} addText={this.addText} />;
+        }else if(this.state.isAddingText){
+            return <AddText uid={this.state.uid} goBack={this.assignTexts}/>;
         }else {
-            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showStudent={this.showStudent} viewTexts={this.viewTexts} />;
+            return <ClassOverview logout={this.props.logout} createClassroom={this.createClassroom} showClassroom={this.showClassroom} showStudent={this.showStudent} assignTexts={this.assignTexts} /> //viewTexts={this.viewTexts} />;
         }
    }
 }

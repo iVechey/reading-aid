@@ -44,8 +44,8 @@
 
 #add-row{
     font-size: 20px;
-    background-color: #7b8d93;
-    color: white;
+    background-color: #6c757d;
+    color: #fff;
 }
 
 #btn-circle{
@@ -54,13 +54,48 @@
     margin-left:10px;
 }
 
+.radio-btn{
+    float: right;
+}
+
 table {
     table-layout: fixed;
     margin: auto;
-    border: 1px solid #7b8d93;
+    border: 1px solid #6c757d;
     font-size: larger;
+    width:70%;
+}
+table, th, td {
+    padding: 5px 15px;
+    border-collapse: collapse;
+    text-align: center;
 }
 
+th, td {
+    border: 1px solid #6c757d;
+}
+
+tbody > tr:hover, tbody >tr:focus {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+th {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+
+
+ /* .table>tbody>tr.active>td {
+    background: #123456;
+    color: #fff;
+  } */
+
+/* #tr-style:enabled{
+    background: #123456;
+    color: #fff;
+} */
 #logout-btn {
     float: right;
     margin-right: 2%;

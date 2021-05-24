@@ -14,17 +14,45 @@ class AddText extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.state = {
-            title: "",
-            text: ""
+            title: '',
+            text: ''
         }
     }
 
     handleSubmit(event) {
-        firebase.database().ref('teachers').child(user.uid).set({
-            // texts: 
-            // username: user.displayName,
-            // email: user.email,
+        event.preventDefault();
+        // get info from form
+        //var textId = firebase.database().ref('texts').push().key;
+
+        var textListRef = firebase.database().ref('texts');
+       // var postListRef = firebase.database().ref('posts');
+        var newTextRef = textListRef.push();
+        // do {
+        //     code = this.generateCode();
+        // } while(this.state.existing_classrooms.includes(code));
+
+        // create the text in text table
+        newTextRef.set({
+            title: this.state.title,
+            text: this.state.text,
+            owner: this.props.uid,
+            //textId: newTextRef.key
         });
+
+
+        firebase.database().ref("teachers/" + this.props.uid + "/texts/" + newTextRef.key).set({
+            textId: newTextRef.key
+        });
+        
+        //connect textId to students in assign text
+        // ref = firebase.database().ref("students/" + this.props.uid + "/texts/" + textId).set({
+        //     textId: textId
+        // });
+
+        alert("New Text '" + this.state.title + "' created!");
+        // take them back to overview page
+        // this.props.getTexts();
+        this.props.goBack();
 
     }
 
@@ -37,37 +65,14 @@ class AddText extends React.Component {
     render(){
         return(
             <div className="text-center">
-                 <button className="btn readingaid-btn m-2" onClick={this.props.unshowAddText}>Back</button>
+                 <button className="btn btn-lg dark-btn" onClick={this.props.goBack}>Back</button>
                 <div className="text-center"><h1><strong>Add Text</strong></h1></div>
                 <div className="form-group">
                         <label>Title:</label>
-                        <input name="Title"  className="form-control form-control-lg" placeholder="Title" value={this.state.email} onChange={this.handleInputChange} />
-                        <textarea className="textBox" type="textarea" placeholder="Enter Text Here" name="textValue" onChange={this.handleInputChange}/>
+                        <input name="title"  className="form-control form-control-lg" placeholder="Title" value={this.state.title} onChange={this.handleInputChange} />
+                        <textarea className="textBox" type="textarea" placeholder="Enter Text Here" name="text" value={this.state.text} onChange={this.handleInputChange}/>
                 </div>
                 <button id="addText" type="button" className="btn readingaid-btn m-2" onClick={this.handleSubmit}>Save</button>       
-
-                {/* <Accordion>
-                    <Card>
-                    <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                        Click me!
-                    </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="0">
-                    <Card.Body>Hello! I'm the body</Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-                <Card>
-                    <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                        Click me!
-                    </Accordion.Toggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="1">
-                    <Card.Body>Hello! I'm another body</Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-                </Accordion> */}
             </div>
         );
     }
