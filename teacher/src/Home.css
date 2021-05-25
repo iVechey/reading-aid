@@ -54,7 +54,7 @@
     margin-left:10px;
 }
 
-.radio-btn{
+.checkbox-btn{
     float: right;
 }
 
@@ -85,17 +85,35 @@ th {
     color: #fff;
 }
 
+.tr-style{
+    background-color:#cfd8dc;
+    color: #7b8d93;
+}
 
+.tr-enabled{
+    background-color: #fff;
+    color: #7b8d93;
+} 
 
- /* .table>tbody>tr.active>td {
-    background: #123456;
-    color: #fff;
-  } */
+.edit-link-btn{
+    text-decoration: underline;
+    display: inline;
+}
 
-/* #tr-style:enabled{
-    background: #123456;
-    color: #fff;
-} */
+.title-input{
+    width:70%;
+    display:inline-block;
+}
+
+.textBox{
+    background-color: white;
+    border: 1px solid #7b8d93;
+    outline: none;
+    resize: none;
+    width: 70%;
+    height: 250px;
+  }
+
 #logout-btn {
     float: right;
     margin-right: 2%;

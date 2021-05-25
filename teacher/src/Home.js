@@ -7,7 +7,7 @@ import CreateClassroom from "./CreateClassroom";
 import ClassOverview from "./ClassOverview";
 import ShowClassroom from "./ShowClassroom";
 import AssignText from "./AssignText";
-import ViewTexts from "./ViewTexts";//what is this supposed to be?
+import ViewTexts from "./ViewTexts";
 import SpecificStudentView from "./SpecificStudentView";
 import AddText from "./AddText";
 // import AssignTexts from "./AssignTexts";
@@ -91,8 +91,6 @@ class Home extends React.Component {
     addText(){
         this.setState({isAssigningTexts: false ,isAddingText:true});
     }
-
-
 
    render() {
     console.log("gets to assiggnTExt function");
