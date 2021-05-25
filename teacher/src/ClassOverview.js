@@ -76,7 +76,8 @@ class ClassOverview extends React.Component {
                 <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
                 <div id="dashboard-buttons">
                     <button className="btn btn-lg light-btn" onClick={this.props.createClassroom}>Create New Class</button>
-                    <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button>
+                    {/* <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button> */}
+                    <button className="btn btn-lg light-btn" onClick={this.props.assignTexts}>View / Edit Texts</button>
                 </div>
                 <div className="clear-fix"></div>
                 {!loading && this.showData()}

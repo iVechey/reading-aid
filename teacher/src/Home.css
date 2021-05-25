@@ -42,6 +42,78 @@
     width: 70%;
 }
 
+#add-row{
+    font-size: 20px;
+    background-color: #6c757d;
+    color: #fff;
+}
+
+#btn-circle{
+    float: right;
+    margin-top:5px;
+    margin-left:10px;
+}
+
+.checkbox-btn{
+    float: right;
+}
+
+table {
+    table-layout: fixed;
+    margin: auto;
+    border: 1px solid #6c757d;
+    font-size: larger;
+    width:70%;
+}
+table, th, td {
+    padding: 5px 15px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid #6c757d;
+}
+
+tbody > tr:hover, tbody >tr:focus {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+th {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.tr-style{
+    background-color:#cfd8dc;
+    color: #7b8d93;
+}
+
+.tr-enabled{
+    background-color: #fff;
+    color: #7b8d93;
+} 
+
+.edit-link-btn{
+    text-decoration: underline;
+    display: inline;
+}
+
+.title-input{
+    width:70%;
+    display:inline-block;
+}
+
+.textBox{
+    background-color: white;
+    border: 1px solid #7b8d93;
+    outline: none;
+    resize: none;
+    width: 70%;
+    height: 250px;
+  }
+
 #logout-btn {
     float: right;
     margin-right: 2%;
