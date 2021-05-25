@@ -98,6 +98,10 @@ th {
 .edit-link-btn{
     text-decoration: underline;
     display: inline;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #7b8d93
 }
 
 .title-input{
@@ -177,6 +181,7 @@ th {
 #stats-table {
     width: 50%;
     background-color: ghostwhite;
+    float: left;
 }
 
 #recording-view-container {

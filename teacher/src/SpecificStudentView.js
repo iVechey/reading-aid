@@ -19,17 +19,33 @@ class SpecificStudentView extends React.Component {
         }
     }
 
-    componentDidMount() {
-        firebase.database().ref("students").child(this.props.uid).once("value").then(snapshot => {
-            this.setState({ student: snapshot.val(), loading: false });
-        });
+    async componentDidMount() {
+        const snapshot = await firebase.database().ref("students").child(this.props.uid).get();
+        if(snapshot.exists()) {
+            this.setState({ student: snapshot.val() });
+            if(this.state.student.texts) {
+                for (const [id, text] of Object.entries(this.state.student.texts)) {
+                    const child = await firebase.database().ref("texts").child(id).child("title").get();
+                    text.title = child.val();
+                }
+            }
+            this.setState({ loading: false });
+        }
     }
 
     showTexts() {
         const texts = this.state.student.texts;
-        return Object.values(texts).map((text, index) => {
-            return <Dropdown.Item key={"text-"+index} onClick={() => {this.populateTable(text)}}>{text.title}</Dropdown.Item>;
-        });
+        if(texts) {
+            return Object.values(texts).map((text) => {
+                if(text.tot_time) {
+                    return  <Dropdown.Item key={text.textId} onClick={() => {this.populateTable(text)}}>"{text.title}"</Dropdown.Item>;
+                } else {
+                    return <Dropdown.Item key={text.textId} disabled>"{text.title}" (not read yet)</Dropdown.Item>
+                }
+            });
+        } else {
+            return <Dropdown.Item disabled>No texts assigned yet</Dropdown.Item>;
+        }
     }
 
     populateTable(text) {
@@ -41,9 +57,7 @@ class SpecificStudentView extends React.Component {
     }
 
     render () {
-        const loading = this.state.loading;
-        const student = this.state.student;
-        return !loading && (
+        return !this.state.loading && (
             <div id="student-view-container">
                 <div id="back-arrow" type="button" role="button" tabIndex="0" onClick={this.props.showDashboard}>
                     <BsArrowLeft />
@@ -54,17 +68,17 @@ class SpecificStudentView extends React.Component {
                             <FaUserCircle />
                         </div>
                         <div id="name-container">
-                            <h1>{student.username}</h1>
+                            <h1>{this.state.student.username}</h1>
                             <h2>12345</h2>
                         </div>
-                            <div id="recording-view-container">
-                                <div id="recording-view">Recording View</div>
-                                <div id="recording-controls"><IoPlayBackSharp /><IoPlaySharp /> <IoPlayForwardSharp /></div>
-                            </div>
+                        {this.state.student.texts && 
+                        <div id="recording-view-container">
+                            <div id="recording-view">Recording View</div>
+                            <div id="recording-controls"><IoPlayBackSharp /><IoPlaySharp /> <IoPlayForwardSharp /></div>
+                        </div>}
                     </div>
                 </div>
                 <button className="btn btn-lg dark-btn mt-3" onClick={this.props.assignTexts}>Assign New Text</button>
-                {student.texts && 
                 <div id="student-stats">
                     <Dropdown>
                         <Dropdown.Toggle className="light-btn mt-3" size="lg" variant="light" id="text-dropdown">
@@ -74,7 +88,8 @@ class SpecificStudentView extends React.Component {
                             {this.showTexts()}
                         </Dropdown.Menu>
                     </Dropdown>
-                    <Table id="stats-table" className="mt-3" bordered>
+                    {this.state.student.texts && 
+                    <Table id="stats-table" className="mt-5" bordered>
                         <tbody>
                             <tr>
                                 <th>Total Time</th>
@@ -93,8 +108,8 @@ class SpecificStudentView extends React.Component {
                                 <td id="diff_words"></td>
                             </tr>
                         </tbody>  
-                    </Table>
-                </div>}
+                    </Table>}
+                </div>
             </div>
         );
     }
