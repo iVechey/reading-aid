@@ -21,22 +21,19 @@ class AddText extends React.Component {
             alert("Make sure to fill in all fields!");
         }
         else{
-            var textListRef = firebase.database().ref('texts');
-            var newTextRef = textListRef.push();
-
-            // create the text in text table
-            newTextRef.set({
+            var newText = {
                 title: this.state.title,
                 text: this.state.text,
                 owner: this.props.uid,
-                textId: newTextRef.key
-            });
-
-            //add text to teacher
-            firebase.database().ref("teachers/" + this.props.uid + "/texts/" + newTextRef.key).set({
-                textId: newTextRef.key
-            });
+            }
             
+            var newTextKey = firebase.database().ref().push().key;
+
+            var updates = {};
+            updates["/texts/" + newTextKey] = newText;
+            updates["/teachers/" + this.props.uid + "/texts/" + newTextKey] = true;
+            firebase.database().ref().update(updates);
+
             //connect textId to students in assign text
             // ref = firebase.database().ref("students/" + this.props.uid + "/texts/" + textId).set({
             //     textId: textId

@@ -38,7 +38,7 @@ class AssignText extends React.Component {
                 snapshot.forEach((child) => {
                     //find text in text table
                     if (index==0){defaultTextId = child.key;index++}
-                    firebase.database().ref("texts/" + child.val().textId).once('value').then(snapshot =>{
+                    firebase.database().ref("texts/" + child.key).once('value').then(snapshot =>{
                         if(snapshot.exists()){
                             this.state.texts.push(snapshot.val());
                             this.setState({retrievedTexts: true});
