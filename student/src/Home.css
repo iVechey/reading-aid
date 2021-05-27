@@ -67,3 +67,9 @@ th {
     background-color: #7b8d93;
     color: white;
 }
+
+h2 {
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}

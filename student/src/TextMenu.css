@@ -1,0 +1,8 @@
+#text-container {
+    display: flex
+}
+
+#checkmark-container {
+    justify-content: center;
+    margin: 1%
+}

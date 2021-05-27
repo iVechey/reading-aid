@@ -18,7 +18,7 @@ class Home extends Component {
 // TODO: on reaching timesRead == 3 make logo no longer clickable
 
    render() {
-       return <h2>Welcome {this.state.user.displayName}!</h2>;
+       return <h2>Hello, {this.state.user.displayName}!</h2>;
    }
 }
 
