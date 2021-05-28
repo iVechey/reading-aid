@@ -10,6 +10,7 @@ class TextMenu extends React.Component {
         super(props);
         this.displayTexts = this.displayTexts.bind(this);
         this.displayCheckmarks = this.displayCheckmarks.bind(this);
+        this.makeTextButton = this.makeTextButton.bind(this);
         this.state = {
             user: firebase.auth().currentUser,
             texts: [],
@@ -46,6 +47,16 @@ class TextMenu extends React.Component {
 
     }
 
+    makeTextButton(text) {
+
+        return (text.timesRead < 3) ? (
+            <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block">{text.title}</button>
+        ) : (
+            <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block" disabled>{text.title}</button>
+        )
+
+    }
+
     displayTexts() {
 
         const texts = this.state.texts;
@@ -53,7 +64,7 @@ class TextMenu extends React.Component {
         if (texts) {
             return Object.values(texts).map((text) => {
                 return <div id="text-container" className="container">
-                        <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block">{text.title}</button>
+                        {this.makeTextButton(text)}
                         <div id="checkmark-container" class="container">
                             {this.displayCheckmarks(text)} 
                         </div>
