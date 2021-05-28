@@ -1,10 +1,26 @@
 #text-button {
-    padding: 4%;
     font-size: large;
-    margin: 4%;
+    max-width: 45%;
+}
+
+#text-container {
+    max-width: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 #text-menu-container {
-    display: flex-wrap;
-    justify-content: space-evenly;
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#checkmark-img {
+    max-width: 15%;
+    height: auto;
+}
+
+#checkmark-container {
+    display: flex;
+    justify-content: center;
 }

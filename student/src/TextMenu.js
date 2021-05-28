@@ -35,7 +35,7 @@ class TextMenu extends React.Component {
         let checkmarks = [];
 
         for (let i = 0; i < text.timesRead; i++) {
-            checkmarks.push(<img src="images/checkmark_img.png" class="img-fluid" alt="checkmark"></img>);
+            checkmarks.push(<img id="checkmark-img" src="images/checkmark_img.png" class="img-fluid" alt="checkmark"></img>);
         }
 
         return (
@@ -52,9 +52,11 @@ class TextMenu extends React.Component {
 
         if (texts) {
             return Object.values(texts).map((text) => {
-                return <div>
-                        <button id="text-button" type="button" class="btn btn-primary btn-lg">{text.title}</button>
-                        {this.displayCheckmarks(text)} 
+                return <div id="text-container" className="container">
+                        <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block">{text.title}</button>
+                        <div id="checkmark-container" class="container">
+                            {this.displayCheckmarks(text)} 
+                        </div>
                     </div>
             });
         } else {

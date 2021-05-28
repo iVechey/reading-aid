@@ -29,7 +29,10 @@ class Home extends Component {
        if (this.state.isReadingText) {
            return <ReadText showTextMenu={this.showTextMenu} user={this.user} />;
        } else {
-           return <TextMenu/>
+           return <div id="homepage-container" className="container-fluid">
+               <h2 id="welcome-banner">READING AID</h2>
+               <div id="text-menu" className="container-fluid"><TextMenu/></div>
+            </div>
        }
    }
 }
