@@ -9,6 +9,7 @@ class TextMenu extends React.Component {
     constructor(props) {
         super(props);
         this.displayTexts = this.displayTexts.bind(this);
+        this.displayCheckmarks = this.displayCheckmarks.bind(this);
         this.state = {
             user: firebase.auth().currentUser,
             texts: [],
@@ -21,15 +22,28 @@ class TextMenu extends React.Component {
             this.setState({ texts: snapshot.val() });
             if(this.state.texts) {
                 for (const [id, text] of Object.entries(this.state.texts)) {
-                    //const child = await firebase.database().ref('texts').child(id).child("title").get();
-                    //text.title = child.val();
-                    const child = await firebase.database().ref('texts').child(id).get();
-                    text.title = child.val().title;
-                    text.timesRead = child.val().timesRead;
+                    const child = await firebase.database().ref('texts').child(id).child("title").get();
+                    text.title = child.val();
                 }
             }
             this.setState({ loading: false });
         }
+    }
+
+    displayCheckmarks(text) {
+
+        let checkmarks = [];
+
+        for (let i = 0; i < text.timesRead; i++) {
+            checkmarks.push(<img src="images/checkmark_img.png" class="img-fluid" alt="checkmark"></img>);
+        }
+
+        return (
+            <div id="single-checkmark-container">
+                {checkmarks}
+            </div>
+        );
+
     }
 
     displayTexts() {
@@ -38,7 +52,10 @@ class TextMenu extends React.Component {
 
         if (texts) {
             return Object.values(texts).map((text) => {
-                return <button id="text-button" type="button" class="btn btn-primary btn-lg">{text.title}</button>
+                return <div>
+                        <button id="text-button" type="button" class="btn btn-primary btn-lg">{text.title}</button>
+                        {this.displayCheckmarks(text)} 
+                    </div>
             });
         } else {
             <h2>no texts have been assigned</h2>
