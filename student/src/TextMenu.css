@@ -1,0 +1,10 @@
+#text-button {
+    padding: 4%;
+    font-size: large;
+    margin: 4%;
+}
+
+#text-menu-container {
+    display: flex-wrap;
+    justify-content: space-evenly;
+}

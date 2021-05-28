@@ -3,7 +3,6 @@ import "./TextMenu.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
-import { Button } from "react-bootstrap"
 
 class TextMenu extends React.Component {
 
@@ -22,8 +21,11 @@ class TextMenu extends React.Component {
             this.setState({ texts: snapshot.val() });
             if(this.state.texts) {
                 for (const [id, text] of Object.entries(this.state.texts)) {
-                    const child = await firebase.database().ref('texts').child(id).child("title").get();
-                    text.title = child.val();
+                    //const child = await firebase.database().ref('texts').child(id).child("title").get();
+                    //text.title = child.val();
+                    const child = await firebase.database().ref('texts').child(id).get();
+                    text.title = child.val().title;
+                    text.timesRead = child.val().timesRead;
                 }
             }
             this.setState({ loading: false });
@@ -36,7 +38,7 @@ class TextMenu extends React.Component {
 
         if (texts) {
             return Object.values(texts).map((text) => {
-                return <h2>"{text.title}"</h2>
+                return <button id="text-button" type="button" class="btn btn-primary btn-lg">{text.title}</button>
             });
         } else {
             <h2>no texts have been assigned</h2>
