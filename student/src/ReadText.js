@@ -1,4 +1,5 @@
 import React from "react";
+import "./ReadText.css";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
@@ -13,10 +14,9 @@ class ReadText extends React.Component {
     }
 
     render() {
-        return <div>
-            <h2>this is the ReadText page</h2>;
-            <h2>{this.state.text.title}</h2>
-            <button class="btn btn-primary btn-lg btn-block" onClick={this.props.showTextMenu}>Back</button>
+        return <div className="container-fluid">
+            <h2>This is the ReadText page for "{this.state.text.title}"</h2>;
+            <button id="back-button" class="btn btn-primary btn-lg btn-block" onClick={this.props.showTextMenu}>Back</button>
         </div>
 
     }

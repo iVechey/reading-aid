@@ -31,8 +31,20 @@ class Home extends Component {
            return <ReadText text={this.state.currentText} showTextMenu={this.showTextMenu} user={this.user} />;
        } else {
            return <div id="homepage-container" className="container-fluid">
-               <h2 id="welcome-banner">READING AID</h2>
-               <div id="text-menu" className="container-fluid"><TextMenu readText={this.readText}/></div>
+                <row>
+                <div id="homepage-header">
+                    <button id="logout-button" type="button" class="btn btn-outline-dark btn-lg" onClick={this.props.logout}>Sign Out</button>
+                </div>                  
+                </row>
+                <row>
+                <div id="banner-container">
+                    <h2 id="student-home-banner">READING AID</h2>
+                </div>
+                </row>
+                <row>
+                    <div id="text-menu" className="container-fluid"><TextMenu readText={this.readText}/></div>
+                </row>
+
             </div>
        }
    }

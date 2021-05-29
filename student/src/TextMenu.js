@@ -50,9 +50,9 @@ class TextMenu extends React.Component {
     makeTextButton(text) {
 
         return (text.timesRead < 3) ? (
-            <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block" onClick={() => {this.props.readText(text)}}>{text.title}</button>
+            <button id="text-button" type="button" class="btn btn-outline-dark btn-lg" onClick={() => {this.props.readText(text)}}>{text.title}</button>
         ) : (
-            <button id="text-button" type="button" class="btn btn-primary btn-lg btn-block" disabled>{text.title}</button>
+            <button id="text-button" type="button" class="btn btn-outline-dark btn-lg" disabled>{text.title}</button>
         )
 
     }
