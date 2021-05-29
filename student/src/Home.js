@@ -17,7 +17,7 @@ class Home extends Component {
         }
     }
 
-    readText() {
+    readText(text) {
         this.setState({ isReadingText: true });
     }
 
@@ -31,7 +31,7 @@ class Home extends Component {
        } else {
            return <div id="homepage-container" className="container-fluid">
                <h2 id="welcome-banner">READING AID</h2>
-               <div id="text-menu" className="container-fluid"><TextMenu/></div>
+               <div id="text-menu" className="container-fluid"><TextMenu readText={this.readText}/></div>
             </div>
        }
    }

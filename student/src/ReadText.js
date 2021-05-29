@@ -4,12 +4,17 @@ import "firebase/database";
 import "firebase/auth";
 
 class ReadText extends React.Component {
+
     constructor(props) {
         super(props);
     }
 
     render() {
-        return <h2>this is the ReadText page</h2>;
+        return <div>
+            <h2>this is the ReadText page</h2>;
+            <button class="btn btn-primary btn-lg btn-block" onClick={this.props.showTextMenu}>Back</button>
+        </div>
+
     }
 
 }
