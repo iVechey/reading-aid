@@ -14,11 +14,12 @@ class Home extends Component {
         this.state = {
             user: firebase.auth().currentUser,
             isReadingText: false,
+            currentText: null,
         }
     }
 
     readText(text) {
-        this.setState({ isReadingText: true });
+        this.setState({ isReadingText: true, currentText: text });
     }
 
     showTextMenu() {
@@ -27,7 +28,7 @@ class Home extends Component {
 
    render() {
        if (this.state.isReadingText) {
-           return <ReadText showTextMenu={this.showTextMenu} user={this.user} />;
+           return <ReadText text={this.state.currentText} showTextMenu={this.showTextMenu} user={this.user} />;
        } else {
            return <div id="homepage-container" className="container-fluid">
                <h2 id="welcome-banner">READING AID</h2>
