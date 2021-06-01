@@ -1,3 +1,6 @@
+//https://www.npmjs.com/package/audio-react-recorder
+//this is where the code came form, it's not super complex
+
 import React, { Component } from 'react'
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 
