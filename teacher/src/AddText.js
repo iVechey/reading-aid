@@ -17,17 +17,18 @@ class AddText extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        if (this.state.text.trim() == "" || this.state.title.trim() == ""){
+        if (this.state.text.trim() === "" || this.state.title.trim() === ""){
             alert("Make sure to fill in all fields!");
         }
         else{
+            var newTextKey = firebase.database().ref().push().key;
+            
             var newText = {
                 title: this.state.title,
                 text: this.state.text,
+                textId: newTextKey,
                 owner: this.props.uid,
             }
-            
-            var newTextKey = firebase.database().ref().push().key;
 
             var updates = {};
             updates["/texts/" + newTextKey] = newText;

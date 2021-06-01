@@ -49,7 +49,7 @@ class ClassOverview extends React.Component {
 
     showData() {
         return this.state.classrooms ? (
-            <Accordion id="classrooms-table-container">
+            <Accordion id="classrooms-table-container" defaultActiveKey="0">
                {Object.values(this.state.classrooms).map((classroom, index) => {
                 return (
                     <Card key={classroom.code}>

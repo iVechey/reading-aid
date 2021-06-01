@@ -1,0 +1,56 @@
+#students-table-container, #texts-table-container {
+    width: 45%;
+    margin: 2.5%;
+}
+
+#texts-table-container {
+    float: left;
+}
+
+#texts-table-container > tbody > tr {
+    background-color: #cfd8dc;
+    color: #7b8d93;
+}
+
+#texts-table-container > tbody > tr:first-child {
+    background-color: #9DA6A9;
+    color: white;
+}
+
+#texts-table-container svg {
+    float: right;
+    margin-top: 1%;
+    height: 15px;
+    width: 15px;
+}
+
+#add-text-btn {
+    float: right;
+    margin-top: 1%;
+}
+
+#add-row {
+    cursor: pointer;
+}
+
+#students-table-container {
+    float: right;
+}
+
+#students-table-container tr {
+    background-color: #cfd8dc;
+    color: #7b8d93;
+    cursor: default;
+}
+
+#students-table-container svg {
+    float: left;
+    margin-top: 3%;
+    color: white;
+}
+
+.checkbox-btn{
+    float: right;
+    margin-top: 3%;
+    cursor: pointer;
+}

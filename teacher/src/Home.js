@@ -93,7 +93,6 @@ class Home extends React.Component {
     }
 
    render() {
-    console.log("gets to assiggnTExt function");
        if(this.state.isCreatingClassroom) {
             return <CreateClassroom returnToDashboard={this.showDashboard} uid={this.state.uid} />;
         } else if(this.state.isShowingClassroom) {

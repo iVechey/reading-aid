@@ -42,20 +42,10 @@
     width: 70%;
 }
 
-#add-row{
-    font-size: 20px;
-    background-color: #6c757d;
-    color: #fff;
-}
-
 #btn-circle{
     float: right;
     margin-top:5px;
     margin-left:10px;
-}
-
-.checkbox-btn{
-    float: right;
 }
 
 table {
@@ -80,20 +70,11 @@ tbody > tr:hover, tbody >tr:focus {
     cursor: pointer;
 }
 
-th {
-    background-color: #6c757d;
+th, #add-row {
+    background-color: #7b8d93;
     color: #fff;
 }
 
-.tr-style{
-    background-color:#cfd8dc;
-    color: #7b8d93;
-}
-
-.tr-enabled{
-    background-color: #fff;
-    color: #7b8d93;
-} 
 
 .edit-link-btn{
     text-decoration: underline;
@@ -101,7 +82,7 @@ th {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: #7b8d93
+    color: white;
 }
 
 .title-input{
@@ -211,7 +192,7 @@ th {
     font-size: 25pt;
 }
 
-svg:nth-child(2) {
+#recording-controls > svg:nth-child(2) {
     font-size: 40pt;
 }
 
