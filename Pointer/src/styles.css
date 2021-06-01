@@ -21,3 +21,12 @@ h1 {
   /*this is so you can see the container*/
   border: 2px solid blue;
 }
+
+.pointer {
+  width: 0; 
+  height: 10px; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-bottom: 20px solid blue;
+}
