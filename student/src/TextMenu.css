@@ -1,0 +1,32 @@
+#text-button {
+    font-size: large;
+    max-width: 45%;
+    padding: 10% 10%;
+    font-family: 'Comic Neue', cursive;
+    font-weight: bold;
+    font-size: x-large;
+    border-width: medium;
+    border-radius: 24px;
+}
+
+#text-container {
+    max-width: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#text-menu-container {
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#checkmark-img {
+    max-width: 15%;
+    height: auto;
+}
+
+#checkmark-container {
+    display: flex;
+    justify-content: center;
+}
