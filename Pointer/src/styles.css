@@ -7,3 +7,17 @@
   font-familt: sans-serif;
   text-align: center;
 }
+
+/*we can do testing with pointer to get actual coordinates
+since these will be hardcoded*/
+h1 {
+  text-align: left;
+  font-size: 20px;
+  width: 12.3%;
+  height: 30px;
+  /*float is what makes it side by side*/
+  float: left;
+  padding: 25px;
+  /*this is so you can see the container*/
+  border: 2px solid blue;
+}
