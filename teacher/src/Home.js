@@ -21,7 +21,6 @@ class Home extends React.Component {
         this.addText = this.addText.bind(this);
         this.showDashboard = this.showDashboard.bind(this);
         this.deleteClassroom = this.deleteClassroom.bind(this);
-        // this.showAssignText = this.showAssignText.bind(this); //do i need this here?
         this.showStudent = this.showStudent.bind(this);
         this.assignTexts = this.assignTexts.bind(this);
         this.state = {

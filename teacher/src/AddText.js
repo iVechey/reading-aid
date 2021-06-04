@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
+import {BsArrowLeft} from "react-icons/bs";
 
 class AddText extends React.Component {
     constructor(props) {
@@ -35,11 +36,6 @@ class AddText extends React.Component {
             updates["/teachers/" + this.props.uid + "/texts/" + newTextKey] = true;
             firebase.database().ref().update(updates);
 
-            //connect textId to students in assign text
-            // ref = firebase.database().ref("students/" + this.props.uid + "/texts/" + textId).set({
-            //     textId: textId
-            // });
-
             alert("New Text '" + this.state.title + "' created!");
             this.props.goBack();
         }
@@ -54,9 +50,11 @@ class AddText extends React.Component {
 
     render(){
         return(
-            <div className="text-center">
-                 <button className="btn btn-lg dark-btn" onClick={this.props.goBack}>Back</button>
-                <div className="text-center"><h1><strong>Add Text</strong></h1></div>
+            <div id="homepage-container" className="container-fluid">
+                <h1><strong>Add Texts</strong></h1>
+                 <div id="back-arrow" type="button" role="button" tabIndex="0" onClick={this.props.goBack}>
+                        <BsArrowLeft />
+                    </div>
                 <div className="form-group">
                         <input name="title"  className="form-control form-control-lg title-input" placeholder="Title" value={this.state.title} onChange={this.handleInputChange} />
                         <textarea className="textBox" type="textarea" placeholder="Enter Text Here" name="text" value={this.state.text} onChange={this.handleInputChange}/>

@@ -33,6 +33,11 @@
     cursor: pointer;
 }
 
+#save-text{
+    margin: 10px;
+    width: 100px;
+}
+
 #students-table-container {
     float: right;
 }
@@ -46,6 +51,17 @@
 #students-table-container svg {
     float: left;
     margin-top: 3%;
+    color: white;
+}
+
+#students-accordian{
+    background-color: #7b8d93;
+    border: none;
+    color: white;
+}
+
+#students-accordian:hover{
+    background-color: #69777c;
     color: white;
 }
 
