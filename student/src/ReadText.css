@@ -1,0 +1,24 @@
+.words {
+    text-align: center;
+    font-size: 30px;
+    float: left;
+    min-width: 7%;
+    height: 90px;
+    padding: 20px;
+    /*this is so you can see the container*/
+}
+
+.block {
+    display: block;
+}
+
+#back-arrow {
+    height: 7.5%;
+    width: 7.5%;
+}
+
+#back-arrow > svg {
+    color: black;
+    height: 100%;
+    width: 100%;
+}

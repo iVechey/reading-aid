@@ -24,18 +24,17 @@ class Recorder extends Component {
       recordState: RecordState.STOP
     });
   };
+
   //audioData contains blob and blobUrl
   onStop = (data) => {
     //this.setState({recordState: RecordState.STOP})
     this.setState({
-      audioData: data
+      audioData: data,
     })
     //just here to show you everything
     //i think this is what we will need
     //console.log(audioData.url);
-    this.props.audio(data)
-  
-
+    this.props.audio(data);
   };
 
   render() {
@@ -47,10 +46,8 @@ class Recorder extends Component {
     return (
       <div>
         <AudioReactRecorder
-          canvasWidth={20}
-          canvasHeight={20}
-          backgroundColor="red"
-          foreGroundColor="red"
+          canvasWidth={0}
+          canvasHeight={0}
           state={recordState}
           onStop={this.onStop}
         />

@@ -73,7 +73,7 @@ class ClassOverview extends React.Component {
         return (
             <div id="homepage-container" className="container-fluid">
                 <button id="logout-btn" className="btn btn-lg light-btn" onClick={this.props.logout}>Sign Out</button>
-                <h2 id="welcome-banner" className="text-center"><strong>Welcome {this.state.user.displayName}!</strong></h2>
+                <h2 id="welcome-banner" className="text-center"><strong>ReadingAid</strong></h2>
                 <div id="dashboard-buttons">
                     <button className="btn btn-lg light-btn" onClick={this.props.createClassroom}>Create New Class</button>
                     {/* <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button> */}
