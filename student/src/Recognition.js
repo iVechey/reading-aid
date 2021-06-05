@@ -1,4 +1,3 @@
-import React from "react";
 import SpeechRecognition, {
   useSpeechRecognition
 } from "react-speech-recognition";
@@ -16,15 +15,10 @@ function Recognition(props) {
     return null;
   });
 
-  //this may be a problem when we update commands.
-  const { transcript } = useSpeechRecognition({ commands });
+  useSpeechRecognition({ commands });
   SpeechRecognition.startListening({ continuous: true });
 
-  //the buttons are just for testing. there will only be a pointer
-  return (
-    <div className="App">
-    </div>
-  );
+  return null;
 }
 
 export default Recognition;

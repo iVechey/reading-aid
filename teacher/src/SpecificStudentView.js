@@ -37,7 +37,7 @@ class SpecificStudentView extends React.Component {
         const texts = this.state.student.texts;
         if(texts) {
             return Object.values(texts).map((text) => {
-                if(text.tot_time) {
+                if(text.timesRead > 0) {
                     return  <Dropdown.Item key={text.textId} onClick={() => {this.populateTable(text)}}>"{text.title}"</Dropdown.Item>;
                 } else {
                     return <Dropdown.Item key={text.textId} disabled>"{text.title}" (not read yet)</Dropdown.Item>

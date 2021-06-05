@@ -31,30 +31,32 @@ class ReadText extends React.Component {
     }
 
     getAudio(audioFile) {
-        console.log(audioFile);
         this.setState({audio: audioFile});
-
     }
 
     changeCallback(spokenWord) {
+        // remove punctuation
         var cleanWord = this.state.wordList[this.state.index].replace(
           /[.,/#!$%^&*;:'{}=\-_`~()]/g,
           ""
         );
-        console.log("cleaned word:", cleanWord);
+        // check if the word spoken matches the word that the pointer is on
         if (cleanWord === spokenWord.command) {
           this.setState({ index: this.state.index + 1 });
         }
-    
+        
+        // reached the end of the text
         if (this.state.index === this.state.wordList.length) {
-          console.log("The student is finished...");
-          this.callOnStop();
-          console.log("here: ",this.state.audio);
+            // retrieve the audio file
+            this.refs.recorder.stop();
+            console.log("Audio file: ", this.state.audio);
+            // increment "times read" in the database
+            const updates = {};
+            updates["students/" + this.props.user.uid + "/texts/" + this.state.text.textId + "/timesRead"] = firebase.database.ServerValue.increment(1);
+            firebase.database().ref().update(updates);
+            // redirect to the text menu
+            this.props.showTextMenu();
         }
-    }
-
-    callOnStop() {
-        this.refs.recorder.stop();
     }
 
     render() {
@@ -63,7 +65,7 @@ class ReadText extends React.Component {
                 <Recognition wordList={this.state.wordList} callBack={this.changeCallback} />
                 <Recorder ref="recorder" audio={this.getAudio} />
                 <h2>{this.state.text.title}</h2>
-                <div id="back-arrow" type="button" role="button" tabIndex="0" onClick={this.props.showDashboard}>
+                <div id="back-arrow" type="button" role="button" tabIndex="0" onClick={this.props.showTextMenu}>
                     <BsArrowLeft />
                 </div>
                 <div>

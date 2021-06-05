@@ -28,7 +28,7 @@ class Home extends Component {
 
    render() {
        if (this.state.isReadingText) {
-           return <ReadText text={this.state.currentText} showTextMenu={this.showTextMenu} user={this.user} />;
+           return <ReadText text={this.state.currentText} showTextMenu={this.showTextMenu} user={this.state.user} />;
        } else {
            return <div id="homepage-container" className="container-fluid">
                 <row>
