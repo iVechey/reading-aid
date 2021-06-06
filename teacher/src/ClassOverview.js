@@ -8,7 +8,6 @@ import { Accordion, Card, ListGroup, Button } from "react-bootstrap"
 class ClassOverview extends React.Component {
     constructor(props) {
         super(props);
-        this.getData = this.getData.bind(this);
         this.renderStudents = this.renderStudents.bind(this);
         this.showData = this.showData.bind(this);
         this.state = {
@@ -19,10 +18,6 @@ class ClassOverview extends React.Component {
     }
 
     componentDidMount() {
-        this.getData();
-    }
-
-    getData() {
         let ref = firebase.database().ref("teachers").child(this.state.user.uid);
         ref.once("value").then(snapshot => {
             this.response = snapshot.val()["classrooms"];
@@ -30,6 +25,7 @@ class ClassOverview extends React.Component {
         });
     }
 
+    /* Renders a list of the students in the given class; if no students, renders "no students yet" */
     renderStudents(i) {
         const classroom = Object.values(this.state.classrooms)[i];
         return classroom.students ? (
@@ -47,6 +43,7 @@ class ClassOverview extends React.Component {
           );
     }
 
+    /* Renders the accordion that shows all the user's classrooms and the students in them */
     showData() {
         return this.state.classrooms ? (
             <Accordion id="classrooms-table-container" defaultActiveKey="0">
@@ -68,6 +65,7 @@ class ClassOverview extends React.Component {
             ) : null;
         }
 
+    /* Shows classrooms/students accordion (above), create classroom button, assign text button, and a logout button */
     render() {
         const loading = this.state.loading;
         return (
@@ -76,7 +74,6 @@ class ClassOverview extends React.Component {
                 <h2 id="welcome-banner" className="text-center"><strong>ReadingAid</strong></h2>
                 <div id="dashboard-buttons">
                     <button className="btn btn-lg light-btn" onClick={this.props.createClassroom}>Create New Class</button>
-                    {/* <button className="btn btn-lg light-btn" onClick={this.props.viewTexts}>View / Edit Texts</button> */}
                     <button className="btn btn-lg light-btn" onClick={this.props.assignTexts}>Assign Texts</button>
                 </div>
                 <div className="clear-fix"></div>

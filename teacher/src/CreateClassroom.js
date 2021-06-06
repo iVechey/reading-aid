@@ -27,16 +27,19 @@ class CreateClassroom extends React.Component {
         });
     }
 
+    /* Generates a code of uppercase letters and numbers in the format XXXX-XXXX-XXXX */
     generateCode() {
         return (Math.random().toString(16).substr(2, 4) + "-" 
         + Math.random().toString(16).substr(2, 4) + "-" 
         + Math.random().toString(16).substr(2, 4)).toUpperCase();
     }
 
+    /* Event handler for when the user starts typing in the classroom name in the form */
     handleInputChange(event) {
         this.setState({ classroom_name: event.target.value });
     }
 
+    /* Creates a classroom in the database and generates a code for it, then redirects to classrooms overview page */
     handleSubmit(event) {
         event.preventDefault();
         // get info from form
@@ -62,6 +65,7 @@ class CreateClassroom extends React.Component {
         this.props.returnToDashboard();
     }
 
+    /* Renders a form to input a classroom name, a submit button, and a back button */
     render() {
         return (
             <form id="create-classroom-form" className="text-center">

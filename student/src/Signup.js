@@ -18,6 +18,7 @@ class Signup extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    /* Event listener for form inputs */
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name;
@@ -25,6 +26,7 @@ class Signup extends Component {
         this.setState({[name]: value});
     }
 
+    /* Use Firebase to authenticate user; if successful, create new account in the database and redirect to the user's homepage */
     handleSubmit(event) {
         event.preventDefault();
         // get info from form
@@ -70,6 +72,7 @@ class Signup extends Component {
         });
     }
 
+    /* Renders the create account form */
     render() {
         return (
             <form id="signup-form" className="text-center">

@@ -12,21 +12,17 @@ class Welcome extends Component {
         }
     }
 
+    /* Switches between rendering login page and create account page */
     switchView() {
         this.setState({ showSignUp: !this.state.showSignUp });
     }
 
+    /* Defaults to showing login page, but can be switched to show create account page */
     render() {
-        let component;
-        if(!this.state.showSignUp) {
-            component = <Login switchView={this.switchView} login={this.props.login} />;
-        } else {
-            component = <Signup switchView={this.switchView} login={this.props.login} />;
-        }
         return (
             <div>
                 <h2 id="welcome-banner"><strong>ReadingAid</strong></h2>
-                {component}
+                {this.state.showSignUp ? <Signup switchView={this.switchView} login={this.props.login} /> : <Login switchView={this.switchView} login={this.props.login} />}
             </div>
         );
     }

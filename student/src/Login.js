@@ -14,12 +14,14 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    /* Event listener for form inputs */
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name;
         this.setState({[name]: value});
     }
 
+    /* Uses Firebase to authenticate the user and redirect to their homepage */
     handleSubmit(event) {
         event.preventDefault();
         // get info from form
@@ -34,6 +36,7 @@ class Login extends Component {
         });
     }
 
+    /* Renders the login form */
     render() {
         return (
             <form id="login-form" className="text-center">

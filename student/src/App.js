@@ -15,10 +15,12 @@ class App extends React.Component {
 		 };
 	}
 
+	/* Sets the currently logged in user and redirects to their homepage */
 	login() {
 		this.setState({ user: firebase.auth().currentUser });
 	}
 
+	/* Logs out the current user and redirects to login/create account page */
 	logout() {
 		firebase.auth().signOut().then(() => {
 			this.setState({ user: null, });
@@ -30,7 +32,7 @@ class App extends React.Component {
 		});
 	}
 
-	// if user logged in display home page, else display login on Welcome
+	/* If a user is logged in, shows user's hompage, else shows login/create account pages */
 	render() {
 		return this.state.user ? <Home logout={this.logout} /> : <Welcome login={this.login} />;
 	}

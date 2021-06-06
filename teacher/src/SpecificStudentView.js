@@ -19,6 +19,7 @@ class SpecificStudentView extends React.Component {
         }
     }
 
+    /* Gets the student's assigned texts from the database */
     async componentDidMount() {
         const snapshot = await firebase.database().ref("students").child(this.props.uid).get();
         if(snapshot.exists()) {
@@ -33,6 +34,7 @@ class SpecificStudentView extends React.Component {
         }
     }
 
+    /* Renders the dropdown of student's assigned texts, disabling the ones they haven't read yet */
     showTexts() {
         const texts = this.state.student.texts;
         if(texts) {
@@ -48,6 +50,7 @@ class SpecificStudentView extends React.Component {
         }
     }
 
+    /* Populate the bottom table with stats once a specific text is selected */
     populateTable(text) {
         document.getElementById("text-dropdown").innerHTML = text.title;
         document.getElementById("tot_time").innerHTML = text.tot_time + " minutes";
@@ -56,6 +59,7 @@ class SpecificStudentView extends React.Component {
         document.getElementById("diff_words").innerHTML = text.diff_words;
     }
 
+    /* Shows user info (name, id, photo), button to assign texts, dropdown of their assigned texts, a table for reading stats, and a space for the recording view */
     render () {
         return !this.state.loading && (
             <div id="student-view-container">
