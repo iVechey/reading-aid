@@ -8,7 +8,8 @@ import Recorder from "./Recorder";
 import Recognition from "./Recognition";
 
 class ReadText extends React.Component {
-
+    //TODO Audio file needs to be uploaded
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -22,18 +23,19 @@ class ReadText extends React.Component {
         this.changeCallback = this.changeCallback.bind(this);
         this.getAudio = this.getAudio.bind(this);
     }
-
+    //when called
     componentDidMount() {
         firebase.database().ref("texts").child(this.props.text.textId).get().then(snapshot => {
             this.setState({ text: snapshot.val(), loading: false });
             this.setState({ wordList: snapshot.val().text.split(" ") });
         });
     }
-
+    //this will grab an audio file from our recording component, this gets passed in
     getAudio(audioFile) {
         this.setState({audio: audioFile});
     }
-
+    //main function: pass into the recognition function and have the speech recognition do the check 
+    //if user is correct, the pointer will move, if not nothing happens. 
     changeCallback(spokenWord) {
         // remove punctuation
         var cleanWord = this.state.wordList[this.state.index].replace(
@@ -93,7 +95,11 @@ class ReadText extends React.Component {
         );
 
     }
-
+    
 }
 
 export default ReadText;
+/*TODO Style with the student home page, do a color scheme
+    Mess with the commands for speech recognition
+    Positive feedback for students, no negative feedback, but maybe a little "I didn't get that"
+    */
