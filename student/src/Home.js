@@ -18,14 +18,19 @@ class Home extends Component {
         }
     }
 
+    // Called by text buttons in text menu on home page to go to ReadText to read
+    // the selected text
     readText(text) {
         this.setState({ isReadingText: true, currentText: text });
     }
 
+    // Called by return button in ReadText page to return user to home page
     showTextMenu() {
         this.setState({ isReadingText: false });
     }
 
+    // Render either the student home page with menu of assigned texts, or the read text page for the selected
+    // text, depending on the current state
    render() {
        if (this.state.isReadingText) {
            return <ReadText text={this.state.currentText} showTextMenu={this.showTextMenu} user={this.state.user} />;
