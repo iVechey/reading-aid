@@ -1,6 +1,9 @@
 //https://www.npmjs.com/package/audio-react-recorder
 //this is where the code came form, it's not super complex
 
+
+/*Will get recordings from the students so that teachers could have access to 
+student recordings. This will be a component on the student read text page*/
 import React, { Component } from "react";
 import AudioReactRecorder, { RecordState } from "audio-react-recorder";
 
@@ -13,12 +16,13 @@ class Recorder extends Component {
       audioData: null
     };
   }
+  //record when called
   componentDidMount() {
     this.setState({
       recordState: RecordState.START
     })
   }
-
+  //stops the audio recording
   stop = () => {
     this.setState({
       recordState: RecordState.STOP
@@ -26,23 +30,17 @@ class Recorder extends Component {
   };
 
   //audioData contains blob and blobUrl
+  //this will get called once the recording stops
   onStop = (data) => {
-    //this.setState({recordState: RecordState.STOP})
     this.setState({
       audioData: data,
     })
-    //just here to show you everything
-    //i think this is what we will need
-    //console.log(audioData.url);
     this.props.audio(data);
   };
 
   render() {
     const { recordState } = this.state;
 
-    //we may have to have the students
-    //click a button to start the recording
-    //you make canvas Width/Height both 0
     return (
       <div>
         <AudioReactRecorder
@@ -56,3 +54,9 @@ class Recorder extends Component {
   }
 }
 export default Recorder;
+
+/*TODO 
+chunk the recording, into single sentences or words
+take the recording and put it into the database. 
+*/
+
