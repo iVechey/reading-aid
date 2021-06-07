@@ -1,3 +1,6 @@
+/*This is the reading page for the student view, the student will access this page after clicking on a text, 
+the text is then loaded as a state (wordList) and then a recorder records the voice and waits for the student to finish*/
+
 import React from "react";
 import "./ReadText.css";
 import firebase from "firebase/app";
